@@ -1,0 +1,239 @@
+#!/bin/bash
+
+#
+# firmwaredownloader - download non-free firmware and put them in a directory
+# (C) 2010 Eugenio (g7) and the Semplice Team - All rights reserved.
+# Script released under the terms of the GNU GPL license, version 3 or later.
+#
+
+VERSION="0.1"
+
+SNAME="`basename $0`"
+
+GUI="y"
+
+error() {
+  # Error function
+  echo -e "E: \033[1;31m$1\033[m" >&2
+  if [ "$GUI" = "y" ]; then
+	zenity --title "Install Firmware(s)" --error --text "$1"
+  fi
+  restorefrontend
+  if [ -z "$2" ]; then
+	exit 1
+  elif [ "$2" != "None" ]; then
+	exit $2
+  fi
+}
+
+exitiferror() {
+	if [ "$ERROR" = "y" ]; then
+		restorefrontend
+		exit 1
+	fi
+}
+
+info() {
+	# Info function
+	echo "I: $@"
+}
+
+help() {
+	cat <<EOF
+$SNAME - install non-free firmware previously downloaded with firmwaredownloader
+
+SYNTAX: $0 [option]
+
+If there aren't any option a directory selection dialog is open.
+Available options:
+	-d|--dir			- Specifies the directory where the firmwares are located.
+	-h|--help			- Displays this message.
+	-v|--version			- Displays the version.
+
+Bugs to: bugs.launchpad.net/semplice
+EOF
+}
+
+list() {
+	SKIPPED=0
+	for package in `ls | grep ".deb"`; do
+		# Ensure that the package is *really* a Debian package
+		fileres="`file $package | awk '{ print $2 }'`"
+		if [ "$fileres" != "Debian" ]; then
+			# The package is not a debian package. Oh no!
+			echo "$package is not a Debian package; skipping it."
+			echo "    * $package is not valid. SKIPPED." >> /tmp/firmwareinstaller.log
+			let SKIPPED=SKIPPED+1
+		else
+			list="$list $package"
+		fi
+	done
+
+	# Obtain the number of packages
+	NUM="`echo $list | wc -w`"
+	if [ "$NUM" = "0" ]; then
+		error "There aren't packages in $DIR!"
+	fi
+
+	# Calculate percentage, if we're in GUI mode
+	if [ "$GUI" = "y" ]; then
+		if [[ "$NUM" -gt "100" ]]; then
+			# if $NUM > 100, use pulsate.
+			_PULSATE="y"
+		else
+			let PERC=100/NUM
+		fi
+	fi
+}
+
+install() {
+	PERCENTAGE=0
+
+	FAIL=0
+	SUCCESS=0
+	let TOTAL=NUM+SKIPPED
+
+	for package in $list; do
+		echo
+		# Yay!
+		echo "# Installing $package..."
+		if [ "$GUI" = "y" ] && [ "$_PULSATE" != "y" ]; then
+			let PERCENTAGE=PERCENTAGE+PERC
+			echo $PERCENTAGE
+		fi
+		dpkg -i $package
+		if [ "$?" != "0" ]; then
+			echo "    * $package FAILED to install." >> /tmp/firmwareinstaller.log
+			error "An error occoured while installing $package." None
+			let FAIL=FAIL+1
+		else
+			echo "    * $package installed SUCCESSFULLY." >> /tmp/firmwareinstaller.log
+			let SUCCESS=SUCCESS+1
+		fi
+	done
+	echo -e "\n\n\nTOTAL = $TOTAL, SKIPPED = $SKIPPED, FAIL = $FAIL, SUCCESS = $SUCCESS" >> /tmp/firmwareinstaller.log
+	echo "# All ok."
+}
+
+version() {
+	echo "$SNAME version $VERSION."
+	echo "(C) 2010 Eugenio (g7) and the Semplice Team. All rights reserved."
+	echo "Work released under the terms of the GNU GPL license, version 3 or later."
+	echo "See /usr/share/common-licenses/GPL for more details."
+}
+
+restorefrontend() {
+	echo SET debconf/frontend $DEBCONF_FRONTEND | debconf-communicate # Re-set debconf/frontend =D
+}
+
+parseargs() {
+	for arg in $@; do
+		case "$1" in
+			-d|--dir)
+				shift
+				DIR="$1"
+				GUI="n"
+				shift;;
+			-h|--help)
+				shift
+				help
+				exit 0;;
+			-v|--version)
+				shift
+				version
+				exit 0;;
+			*)
+				rej="$rej $1"
+				shift;;
+		esac
+	done
+}
+
+parseargs $@
+_rej=${rej//" "/""}
+if [ "$_rej" ]; then
+	echo "Illegal argument(s):$rej"
+	help
+	exit 1
+fi
+
+# Check if we're root
+if [ "$USER" != "root" ]; then
+	# Uhmm... we aren't root.
+	if [[ "$GUI" = "y" ]]; then # GTK+ frontend: use gksudo
+		gksudo --message "Please insert your password to install previously downloaded firmware." $0 $@
+		exit
+	else # CLI frontend: use sudo
+		echo "Please insert your password to install previously downloaded firmware."
+		sudo $0 $@
+		exit
+	fi
+fi
+
+trap restorefrontend INT
+
+# Get current debconf frontend
+DEBCONF_FRONTEND="`echo GET debconf/frontend | debconf-communicate | tr A-Z a-z | sed 's/^0 //'`" # String grabbed from here http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=205265
+
+if [ "$GUI" = "y" ]; then
+	# Some firmwares need user prompts. But if we're into the GTK+ frontend and the frontend is not gnome,
+	# the install will stick to debconf output, which is captured by zenity.
+	# So, set the frontend to GTK.
+	FRONTEND="gnome"
+else
+	# Same here. If we aren't in X debconf will try to fallback to the dialog frontend, but is fancier without
+	# debconf warnings :-)
+	FRONTEND="dialog"
+fi
+
+echo SET debconf/frontend $FRONTEND | debconf-communicate # Set debconf/frontend!
+
+clear
+version
+echo
+
+echo "Here the summary:" > /tmp/firmwareinstaller.log
+
+if [ "$GUI" = "y" ] && [ -z "$DIR" ]; then
+	DIR="`zenity --file-selection --directory`"
+	if [[ "$?" != "0" ]]; then
+		restorefrontend
+		exit 0
+	fi
+fi
+
+if [ ! -d "$DIR" ]; then
+	error "Directory $DIR doesn't exist."
+fi
+
+NUM=0
+
+# Check the zenity version
+if [ "`dpkg -s zenity | grep \"Version: \" | cut -d \":\" -f2 | grep \"+semplice\" | sed -e 's/ //g'`" ]; then
+	otherarg="--no-cancel" # If the version has +semplice*, zenity is patched.
+fi
+# The above should be updated after gnome 2.32 (and so zenity 2.32) release.
+
+cd $DIR
+list
+if [ "$GUI" = "y" ] && [ "$_PULSATE" != "y" ]; then
+	install | zenity --title "Install firmware(s)" --progress --auto-close $otherarg --percentage=0 --text "Installing packages.. please wait."
+	exitiferror
+elif [ "$GUI" = "y" ] && [ "$_PULSATE" = "y" ]; then
+	install | zenity --title "Install firmware(s)" --progress --auto-close $otherarg --pulsate --text "Installing packages.. please wait."
+	exitiferror
+else
+	install
+	exitiferror
+fi
+
+restorefrontend
+if [ "$GUI" = "y" ]; then
+	zenity --title "Summary" --text-info --filename /tmp/firmwareinstaller.log --width 640 --height 480
+else
+	clear
+	cat /tmp/firmwareinstaller.log
+fi
+
+echo
+info "All done."

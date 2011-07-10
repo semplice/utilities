@@ -1,0 +1,5 @@
+smxi is taken from here: http://code.google.com/p/smxi/source/browse/trunk/smxi-stub/smxi-stub
+xdg-autostart is taken from here: http://git.openbox.org/?p=dana/openbox.git;a=blob;f=data/autostart/openbox-xdg-autostart
+
+smxi: Copyright (C) Harald Hope, sidux team members 2007-2010
+xdg-autostart (openbox-xdg-autostart): Copyright (C) 2008 Dana Jansens

@@ -1,0 +1,311 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+#
+# A simple script to Logout, Shutdown, Reboot, Suspend, Hibernate and Change User via ConsoleKit and UPower...
+# (C) 2010 Eugenio "g7" Paolantonio, <morarossa@gmail.com>. All rights reserved.
+# Work released under the terms of the GNU GPL license, version 3 or later.
+#
+
+import os, sys, time
+import glob
+import pygtk, gtk, gtk.gdk
+pygtk.require("2.0")
+import dbus
+import threading
+
+import t9n.library
+_ = t9n.library.translation_init("semplice-utilities")
+
+glade = "/usr/share/semplice-utilities/logout/logout.glade" # The glade gui.
+#glade = "/home/g7/semplice/emily/util/semplice-utilities-1.11.1/logout.glade"
+action = False
+HOME = os.getenv("HOME")
+
+actions = {0:_("Lock Screen"), 1:_("Logout"), 2:_("Switch User"), 3:_("Suspend"), 4:_("Hibernate"), 5:_("Shutdown"), 6:_("Reboot")}
+
+# Open the system bus.
+bus = dbus.SystemBus()
+
+# ConsoleKit (Shutdown; Restart)
+ck = dbus.Interface(bus.get_object("org.freedesktop.ConsoleKit", "/org/freedesktop/ConsoleKit/Manager"), "org.freedesktop.ConsoleKit.Manager")
+
+# UPower (Suspend, Hibernate)
+up = dbus.Interface(bus.get_object("org.freedesktop.UPower","/org/freedesktop/UPower"), "org.freedesktop.UPower")
+
+def error(error,exit=None):
+	print >>sys.stderr, "\aE: " + error
+	if exit != None:
+		sys.exit(exit)
+
+def help():
+	print """SYNTAX: %s [option]
+
+ --lock			- Locks the screen
+ --logout		- Exits from this Openbox session.
+ --switch-user		- Switch user (GDM3).
+ --suspend		- Uses UPower to suspend the system.
+ --hibernate		- Uses UPower to hibernate the system.
+ --shutdown		- Uses ConsoleKit to shutdown the system.
+ --reboot		- Uses ConsoleKit to reboot the system.
+ --reboot-install	- Internal (used by installer).
+ --last			- Last action (or action selected in config).
+ 
+ --settings		- Configure semplice-logout beahviour.""" % (sys.argv[0])
+
+
+# Core
+class core:
+	def delete_pcmanfm_socket(self):
+		""" This function will delete all user's pcmanfm sockets (if any) for the current user in /tmp. """
+		for socket in glob.glob("/tmp/.pcmanfm-socket-*-" + os.getenv("USER")):
+			try:
+				os.remove(socket)
+			except:
+				# Nothing faulty will happen if the socket is not removed; the user will just cannot open the file manager, a reboot will fix the problem.
+				pass
+	
+	def write_action_to_file(self, act):
+		""" Writes the action on ~/.lastlogoutchoice, which Alan's logout.py will parse. """
+		
+		actions = {"lock":0, "logout":1, "switch":2, "suspend":3, "hibernate":4, "shutdown":5, "reboot":6}
+		if not os.path.exists(os.path.join(HOME, ".lastlogoutchoice.lock")):
+			with open(os.path.join(HOME, ".lastlogoutchoice"), "w") as f:
+				f.write(str(actions[act]) + "\n")
+	
+	def do_reboot(self, one=False, two=False):
+		self.write_action_to_file("reboot")
+		ck.Restart()
+	
+	def do_shutdown(self, one=False, two=False):
+		self.write_action_to_file("shutdown")
+		ck.Stop()
+	
+	def do_logout(self, one=False, two=False):
+		# Delete pcmanfm socket, if the user will login again will not be able to open pcmanfm
+		self.delete_pcmanfm_socket()
+		self.write_action_to_file("logout")
+		os.system("openbox --exit")
+	
+	def do_suspend(self, one=False, two=False):
+		self.write_action_to_file("suspend")
+		up.Suspend(ignore_reply=True)
+	
+	def do_hibernate(self, one=False, two=False):
+		self.write_action_to_file("hibernate")
+		up.Hibernate(ignore_reply=True)
+	
+	def do_lock(self, one=False, two=False, write=True):
+		if write: self.write_action_to_file("lock")
+		os.system("xscreensaver-command --lock")
+	
+	def do_switch(self, one=False, two=False):
+		# First, lock the screen
+		self.do_lock(write=False)
+		# Then switch
+		self.write_action_to_file("switch")
+		os.system("gdmflexiserver")
+
+##### MAIN INTERFACE #####
+class SettingsGUI:
+	def quit(self, pinco):
+		gtk.main_quit()
+	
+	def __init__(self):
+		if not os.path.isfile(glade):
+			error(_("%s doesn't exists. Can't open GUI - use the command line frontend instead." % (glade)),1)
+				
+		builder = gtk.Builder()
+		builder.add_from_file(glade)
+		
+		self.theme = gtk.icon_theme_get_default()
+		
+		self.settingsw = builder.get_object("logout_settings")
+		
+
+		self.settingsw.connect("destroy",self.quit)
+		# Get buttons
+		self.close = builder.get_object("close_button")
+		# Connect button
+		self.close.connect("clicked",self.quit)
+		
+		# Get radiobuttons...
+		self.last = builder.get_object("last")
+		self.selection = builder.get_object("selection")
+		# Combobox of selection radiobutton
+		self.combosel = builder.get_object("combosel")
+		self.combosel_list = builder.get_object("combosel_list")
+
+		self.combosel.set_model(self.combosel_list)
+		cell = gtk.CellRendererText()
+		self.combosel.pack_start(cell, True)
+		self.combosel.add_attribute(cell, 'text',0)
+
+		self.settingsw.show()
+
+class GUI:	
+	class timer(threading.Thread):
+		def __init__(self, text, window, do):
+			self.num = 60 # The seconds after automatically shutdown, reboot, etc.
+			
+			self.text = text
+			self.stopped = False
+			self.do = do
+			self.window = window
+			threading.Thread.__init__(self)
+		
+		def run(self):
+			while self.num != 0:
+				if self.stopped:
+					return None
+				self.window.format_secondary_markup(self.text + " (-<b>%d</b>)" % self.num)
+				#print "-%d" % self.num
+				self.num -= 1
+				time.sleep(1)
+			self.do()
+		
+		def stop(self):
+			self.stopped = True
+	
+	def quit(self, one=False):
+		self.singlew.hide()
+		self.tim.stop()
+		gtk.gdk.threads_leave()
+		gtk.main_quit()
+	
+	def act_helper(self, one=False):
+		self.act()
+		self.quit()
+	
+	def connect_single(self):
+		""" This will set all things needed by action. """
+		
+		self.closetext = _("<i>This will <b>close</b> all running applications.</i>")
+		self.suspendtext = _("<i>On resume, all running applications will be <b>restored</b>.</i>")
+		self.suffix = " your system"
+		
+		if action == _("Reboot") or action == _("Reboot (Select no to launch Live System)") or action == _("Shutdown") or action == _("Logout"):
+			text = self.closetext
+			suffix = self.suffix
+		elif action == _("Suspend") or action == _("Hibernate"):
+			text = self.suspendtext
+			suffix = self.suffix
+		
+		if action == _("Reboot") or action == _("Reboot (Select no to launch Live System)"):
+			iconname = "stock_refresh"
+			self.act = self.sclass.do_reboot
+		elif action == _("Shutdown"):
+			iconname = "system-shutdown"
+			self.act = self.sclass.do_shutdown
+		elif action == _("Logout"):
+			iconname = "system-log-out"
+			suffix = ""
+			self.act = self.sclass.do_logout
+		elif action == _("Suspend"):
+			iconname = "system-suspend"
+			self.act = self.sclass.do_suspend
+		elif action == _("Hibernate"):
+			iconname = "system-hibernate"
+			self.act = self.sclass.do_hibernate
+		
+		icon = gtk.image_new_from_pixbuf(self.theme.load_icon(iconname, 48, 0))
+		icon.show()
+		
+		self.yes.connect("clicked",self.act_helper)
+		
+		self.singlew.set_title(action)
+		self.singlew.set_icon(self.theme.load_icon(iconname, 16, 0))
+		
+		self.singlew.set_image(icon)
+		self.singlew.set_markup(_("<big><b>Do you <u>really</u> want to <i>%s</i>%s?</b></big>" % (action,suffix)))
+		#self.singlew.format_secondary_markup(text)
+		
+		# Start timer class.
+		self.tim = self.timer(text, self.singlew, self.act_helper)
+		self.tim.start()
+		
+	def __init__(self, sclass):
+		if not os.path.isfile(glade):
+			error(_("%s doesn't exists. Can't open GUI - use the command line frontend instead." % (glade)),1)
+		
+		self.sclass = sclass
+		
+		builder = gtk.Builder()
+		builder.add_from_file(glade)
+		
+		self.theme = gtk.icon_theme_get_default()
+		
+		self.singlew = builder.get_object("single")
+		self.multiw = builder.get_object("multi")
+		
+		if action:
+			# Single window.
+			self.singlew.connect("destroy",self.quit)
+			# Get buttons
+			self.no = builder.get_object("no_button")
+			self.yes = builder.get_object("yes_button")
+			# Connect no button
+			self.no.connect("clicked",self.quit)
+			self.connect_single()
+			
+			self.singlew.show()
+
+gtk.gdk.threads_init()
+c = core()
+
+if len(sys.argv) == 1 or sys.argv[1] == "--help":
+	help()
+	sys.exit(0)
+elif sys.argv[1] == "--logout":
+	action = _("Logout")
+elif sys.argv[1] == "--suspend":
+	action = _("Suspend")
+elif sys.argv[1] == "--hibernate":
+	action = _("Hibernate")
+elif sys.argv[1] == "--shutdown":
+	action = _("Shutdown")
+elif sys.argv[1] == "--reboot":
+	action = _("Reboot")
+elif sys.argv[1] == "--reboot-install":
+	action = _("Reboot (Select no to launch Live System)")
+elif sys.argv[1] == "--switch-user":
+	action = _("Switch User")
+elif sys.argv[1] == "--lock":
+	action = _("Lock Screen")
+elif sys.argv[1] == "--last":
+	# Read ~/.lastlogoutchoice(.lock)
+	fil = os.path.join(HOME, ".lastlogoutchoice.lock")
+	if not os.path.exists(fil):
+		# Use .lastlogoutchoice instead
+		fil = os.path.join(HOME, ".lastlogoutchoice")
+		if not os.path.exists(fil):
+			# First run?
+			error("No .lastlogoutchoice (or .lastlogoutchoice.lock) found. First run an action then re-run this command")
+			sys.exit(1)
+
+	with open(fil) as f:
+		action = actions[int(f.readline())]
+elif sys.argv[1] == "--settings":
+	# Launch settings :D
+	action = "Settings"
+
+if not action:
+	error("%s is not a valid action." % (sys.argv[1]))
+	help()
+	sys.exit(1)
+elif action == _("Lock Screen"):
+	if not os.path.exists("/etc/semplice-live-mode"):
+		# Needs result control
+		c.do_lock()
+	sys.exit(0)
+elif action == _("Switch User"):
+	c.do_switch()
+	# Needs result control
+	sys.exit(0)
+
+if action == "Settings":
+	# Launch settings
+	g = SettingsGUI()
+else:
+	g = GUI(c)
+
+gtk.main()

@@ -1,0 +1,80 @@
+#!/bin/bash
+
+#
+# Semplice-logout: Logout program for Semplice (openbox version)
+# (C) 2009 Semplice Team. All rights reserved.
+# This file is part of semplice-utils.
+# All of this work is released under the terms of the GNU GPLv3 License (or later).
+#
+
+help() {
+
+cat <<EOF
+SYNTAX: $0 [option]
+
+ --lock			- Locks the screen
+ --logout		- Exits from this Openbox session.
+ --switch-user		- Permits to switch user (GDM Only!).
+ --standby		- Tells GDM to standby the system (WARNING: It will logout this session!).
+ --shutdown		- Tells GDM to shutdown the system.
+ --reboot		- Tells GDM to reboot the system.
+ --reboot-install	- Internal (used by installer).
+
+EOF
+
+}
+
+ifexit() {
+
+if [ "$?" = "$1" ]; then
+ shift
+ $@
+fi
+
+}
+
+dialog() {
+
+zenity --question --title "Are you sure to $1 now?" --text "Are you sure to $1$2 now?
+
+The session will $1 after 60 secs." --ok-label "Yes, $1 now." --timeout=60
+
+}
+
+if [ -z "$1" ]; then
+ help
+ exit 1
+elif [ "$1" = "--lock" ]; then
+ if [[ -e "/etc/semplice-live-mode" ]]; then
+  zenity --error --title "Can't lock session." --text "I'm sorry, but in the live session you can't lock the session."
+  exit 1
+ else
+  xscreensaver-command --lock
+ fi
+elif [ "$1" = "--logout" ]; then
+ dialog logout
+ ifexit 1 exit 0
+ openbox --exit
+elif [ "$1" = "--switch-user" ]; then
+ xscreensaver-command --lock & gdm-control --switch-user
+elif [ "$1" = "--standby" ]; then
+ dialog "standby" " (WARNING: IT WILL LOGOUT THIS SESSION!)"
+ ifexit 1 exit 0
+ gdm-control --standby && openbox --exit
+elif [ "$1" = "--shutdown" ]; then
+ dialog shutdown
+ ifexit 1 exit 0
+ gdm-control --shutdown && openbox --exit
+elif [ "$1" = "--reboot" ]; then
+ dialog reboot
+ ifexit 1 exit 0
+ gdm-control --reboot && openbox --exit
+elif [ "$1" = "--reboot-install" ]; then
+ dialog "reboot" " (Use 'No' to continue boot the Semplice Live System)"
+ ifexit 1 exit 0
+ gdm-control --reboot && openbox --exit
+else
+ echo "Illegal option: $1"
+ help
+ exit 1
+fi

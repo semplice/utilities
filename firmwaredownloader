@@ -1,0 +1,202 @@
+#!/bin/bash
+
+#
+# firmwaredownloader - download non-free firmware and put them in a directory
+# (C) 2010 Eugenio (g7) and the Semplice Team - All rights reserved.
+# Script released under the terms of the GNU GPL license, version 3 or later.
+#
+
+VERSION="0.2"
+
+SNAME="`basename $0`"
+
+error() {
+  # Error function
+  echo -e "E: \033[1;31m$1\033[m" >&2
+  if [ -z "$2" ]; then
+   exit 1
+  else
+   exit $2
+  fi
+}
+
+info() {
+	# Info function
+	echo "I: $@"
+}
+
+help() {
+	cat <<EOF
+$SNAME - download non-free firmware and put them in a directory
+
+SYNTAX: $0 <option>
+
+If there aren't any option, -d $PWD -m "http://debian.fastweb.it/debian" -sm "http://apt.semplice.g7.gotgeeks.com/semplice" -a is assumed.
+Available options:
+	-a|--all			- Downloads all firmware listed in semplice-desktop-nonfree
+	-s|--selection			- Downloads all firmware listed after this option
+	-l|--list			- Displays firmware list
+	-m|--debian-mirror		- Set debian mirror to get packages from
+	-sm|--semplice-mirror		- Set semplice mirror to get packages from
+	-d|--dest			- Specifies the destination of the downloaded packages
+	-h|--help			- Displays this message.
+	-v|--version			- Displays the version.
+
+Bugs to: bugs.launchpad.net/semplice
+EOF
+}
+
+version() {
+	echo "$SNAME version $VERSION."
+	echo "(C) 2010 Eugenio (g7) and the Semplice Team. All rights reserved."
+	echo "Work released under the terms of the GNU GPL license, version 3 or later."
+	echo "See /usr/share/common-licenses/GPL for more details."
+}	
+
+parseargs() {
+	for arg in $@; do
+		case "$1" in
+			-a|--all) # semplice-desktop-nonfree
+				DOWNLOAD="all"
+				shift;;
+			-s|--selection)
+				shift
+				DOWNLOAD="$@"  # All packages without -s.
+				break;;
+			-l|--list)
+				DOWNLOAD="list"
+				shift;;
+			-m|--debian-mirror)
+				shift
+				DMIRROR="$1"
+				shift;;
+			-sm|--semplice-mirror)
+				shift
+				SMIRROR="$1"
+				shift;;
+			-d|--dest)
+				shift
+				DEST="$1"
+				shift;;
+			-h|--help)
+				shift
+				help
+				exit 0;;
+			-v|--version)
+				shift
+				version
+				exit 0;;
+			*)
+				rej="$rej $1"
+				shift;;
+		esac
+	done
+}
+
+downl() {
+	if [ -e "$2" ]; then
+		info "$2 already exists. Skipping download..."
+	else
+		if [ "`which wget`" ]; then
+			wget -q $1 -O $2
+		else
+			curl -s -O $2 $1
+		fi
+	fi
+}
+
+checkf() {
+	FILENAME="`grep -w "$1 -" /tmp/firmwaredownloader | awk '{ print $1 }'`"
+	if [ -z "$FILENAME" ]; then
+		return 1
+	fi
+}
+
+# Default configuration, will be overwrited by parseargs, if there are some arguments.
+DOWNLOAD="all" # -a
+DMIRROR="http://debian.fastweb.it/debian" # -m
+SMIRROR="http://apt.semplice.g7.gotgeeks.com/semplice" # -sm
+DEST="$PWD" # -d
+
+parseargs $@
+_rej=${rej//" "/""}
+if [ "$_rej" ]; then
+	echo "Illegal argument(s):$rej"
+	help
+	exit 1
+fi
+
+[ "$NOCLEAR" != "y" ] && clear
+[ "$NOCLEAR" != "y" ] && version
+echo
+
+# Debug
+#echo "DOWNLOAD=$DOWNLOAD"
+#echo "DMIRROR=$DMIRROR"
+#echo "SMIRROR=$SMIRROR"
+#echo "DEST=$DEST"
+
+info "Downloading package list..."
+downl "$SMIRROR/helpers/nonfree.list" /tmp/firmwaredownloader
+
+NUM=0
+
+if [ "$DOWNLOAD" = "list" ]; then
+	# Display the list
+	echo
+	cat /tmp/firmwaredownloader | cut -d " " -f2-
+	exit
+elif [ "$DOWNLOAD" = "all" ] || [ "$DOWNLOAD" = "system-nonfree" ]; then
+	echo
+	# First, download system-nonfree
+	info "Download 0/0: system-nonfree. This may take a while."
+	checkf all
+	downl "$SMIRROR/$FILENAME" $DEST/`basename $FILENAME`
+	info "Done."
+	if [[ "$DOWNLOAD" != "system-nonfree" ]]; then
+		# Set $DOWNLOAD with all packages
+		unset DOWNLOAD
+		list="`cat /tmp/firmwaredownloader | awk '{ print $2 }'`"
+		for allp in $list; do
+			DOWNLOAD="$DOWNLOAD $allp"
+		done
+		DOWNLOAD=${DOWNLOAD/"all"/""}
+	else
+		unset DOWNLOAD
+	fi
+fi
+
+# Now, really download all packages.
+_NUM="`echo $DOWNLOAD | wc -w`"
+for p in $DOWNLOAD; do
+	echo
+	let NUM=NUM+1
+	info "Download $NUM/$_NUM: $p. This may take a while."
+	checkf $p
+	[ "$?" = "1" ] && error "Package $p does not exists. Use $0 -l."
+	downl "$DMIRROR/$FILENAME" $DEST/`basename $FILENAME`
+	info "Done."
+done
+
+echo
+[ "$NOCLEAR" != "y" ] && info "Checking packages..."
+
+# Check if all packages are valid...
+for package in `ls $DEST | grep ".deb"`; do
+	# Ensure that the package is *really* a Debian package
+	fileres="`file $DEST/$package | awk '{ print $2 }'`"
+	if [ "$fileres" != "Debian" ]; then
+		echo
+		# The package is not a debian package. Oh no!
+		info "$package is not a valid Debian package. Do you want to re-download it?"
+		read -p "Insert y or n: " CHOICE
+		if [[ "$CHOICE" = "y" ]]; then
+			rm $DEST/$package
+			_package="`echo $package | cut -d \"_\" -f1`"
+			NOCLEAR="y" $0 -m $DMIRROR -sm $SMIRROR -d $DEST -s $_package
+		fi
+	fi
+done
+
+echo
+[ "$NOCLEAR" != "y" ] && info "All done."

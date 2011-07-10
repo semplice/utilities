@@ -1,0 +1,143 @@
+#!/bin/bash
+
+#
+# nitrogen-add-wallpaper: Simply add wallpapers to nitrogen library (without specify the directory!)
+# (C) 2010 Semplice Team. All rights reserved.
+# This file is part of the semplice-utilities package.
+# All of this work is released under the terms of the GNU GPLv3 License (or later).
+#
+
+# Simply semplice!!
+
+# t9n
+source gettext.sh
+
+export TEXTDOMAIN="semplice-utilities"
+export TEXTDOMAINDIR="/usr/share/locale"
+
+help() {
+
+programname="$0"
+eval_gettext "SYNTAX: \$programname <option>"; echo
+echo
+gettext " --add|-a [image]		- Adds the specified wallpaper."; echo
+gettext " --tempadd|-t [image]		- Temporarly adds the specified wallpaper."; echo
+echo
+gettext "Launching the application without any argument will open the wallpaper selection dialog."; echo
+
+}
+
+DIR="$HOME/.config/nitrogen/add-wallpaper"
+
+# Initial setup...
+if [ ! -d "$DIR" ]; then
+	mkdir -p "$DIR"
+fi
+# $DIR should already be in semplice's default settings...
+
+__title="`gettext \"Add one or more wallpapers\"`"
+__wallpaper="`gettext \"Wallpaper\"`"
+__multiple="`gettext \"Multiple wallpapers are selected. Which wallpaper do you want to apply?\"`"
+__leave="`gettext \"Leave the current background\"`"
+__apply="`gettext \"Do you want to apply the selected wallpaper?\"`"
+
+dialog() {
+	WALLS="`zenity --window-icon /usr/share/icons/hicolor/48x48/apps/nitrogen.png --title=\"$__title\" --file-selection  --separator=\" \" --multiple --file-filter=\"*\" --file-filter=\"*.jpg\" --file-filter=\"*.png\"`"
+}
+
+return_name() {
+	nome="`basename $1`"
+	if [ -e "$DIR/$nome" ]; then
+		separate="`echo $nome | cut -d \".\" -f1`"
+		ext="`echo $nome | cut -d \".\" -f2`"
+		_num="`ls $DIR | wc -l`"
+		for num in `seq $_num`; do
+			if [ ! -e "$DIR/$separate.$num.$ext" ]; then
+				NEWNAME="$DIR/$separate.$num.$ext"
+				break
+			fi
+		done
+	else
+		NEWNAME="$DIR/$nome"
+	fi
+}
+
+add() {
+	if [ -z "$WALLS" ]; then
+		# Canceled.
+		return 2
+	fi
+	
+	if [ "$1" = "--temp" ]; then
+		nitrogen --set-auto "$WALLS"
+		return
+	fi
+	
+	walls="0"
+	for WALL in $WALLS; do
+		let walls=walls+1
+		return_name $WALL
+		ln -s $WALL $NEWNAME
+		
+		_WALL="$NEWNAME"
+		_WALLS="$_WALLS FALSE `basename $NEWNAME`"
+	done
+	
+	if [ "$1" = "--gui" ]; then
+		if [[ "$walls" != "1" ]]; then
+			#_WALLS="TRUE Leave the current background"
+			#for WALL in "$WALLS"; do
+			#	_WALLS="$_WALLS FALSE $WALL"
+			#done
+			RES="`zenity --window-icon /usr/share/icons/hicolor/48x48/apps/nitrogen.png --title=\"$__title\" --list --column=\"\" --column=\"$__wallpaper\" --radiolist --text=\"$__multiple\" TRUE \"$__leave\" $_WALLS`"
+			if [ -z "$RES" ] || [ "$RES" != "Leave the current background" ]; then
+				setwall "$DIR/$RES"
+				return
+			fi
+			return
+		else
+			zenity --window-icon /usr/share/icons/hicolor/48x48/apps/nitrogen.png --title="$__title" --question --text="$__apply"
+			if [[ "$?" = "0" ]]; then
+				setwall "$_WALL"
+				return
+			fi
+			return
+		fi
+	elif [ "$1" != "--temp" ]; then
+		setwall "$_WALL"
+	fi
+}
+
+setwall() {
+	if [ "$1" != "$DIR/" ]; then
+		nitrogen --save --set-auto "$1"
+	fi
+}
+	
+if [ "$#" = "0" ]; then
+	dialog
+	add --gui
+	exit
+fi
+
+if [ "$1" != "-h" ] && [ "$1" != "--help" ] && [ -z "$2" ]; then
+	gettext "E: You should specify the image!"
+	help
+	exit 1
+fi
+
+case "$1" in
+	--add|-a)
+		shift
+		WALLS="$1"
+		add
+		exit;;
+	--tempadd|-t)
+		shift
+		WALLS="$1"
+		add --temp
+		exit;;
+	--help|-h)
+		help
+		exit 0;;
+esac

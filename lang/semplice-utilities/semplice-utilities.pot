@@ -1,0 +1,149 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2011-07-10 20:29+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: semplice-about:36
+msgid ""
+"\n"
+"All work done by the Semplice Project, if not declared, is released under "
+"the GNU GPL license, see below.\n"
+"\n"
+"    This program is free software: you can redistribute it and/or modify\n"
+"    it under the terms of the GNU General Public License as published by\n"
+"    the Free Software Foundation, either version 3 of the License, or\n"
+"    (at your option) any later version.\n"
+"\n"
+"    This program is distributed in the hope that it will be useful,\n"
+"    but WITHOUT ANY WARRANTY; without even the implied warranty of\n"
+"    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\n"
+"    GNU General Public License for more details.\n"
+"\n"
+"    You should have received a copy of the GNU General Public License\n"
+"    along with this program.  If not, see <http://www.gnu.org/licenses/>.\n"
+"\n"
+"For other applications, see /usr/share/doc/<packagename>/copyright.\n"
+"The most common licenses are available in /usr/share/common-licenses.\n"
+"\t\t"
+msgstr ""
+
+#: semplice-about:64
+msgid "A simple, lightweight, fast and Debian-based GNU/Linux distribution."
+msgstr ""
+
+#: semplice-about:67
+msgid "Project Homepage"
+msgstr ""
+
+#: semplice-logout:24 semplice-logout:273 semplice-logout:295
+msgid "Lock Screen"
+msgstr ""
+
+#: semplice-logout:24 semplice-logout:186 semplice-logout:199
+#: semplice-logout:259
+msgid "Logout"
+msgstr ""
+
+#: semplice-logout:24 semplice-logout:271 semplice-logout:300
+msgid "Switch User"
+msgstr ""
+
+#: semplice-logout:24 semplice-logout:189 semplice-logout:203
+#: semplice-logout:261
+msgid "Suspend"
+msgstr ""
+
+#: semplice-logout:24 semplice-logout:189 semplice-logout:206
+#: semplice-logout:263
+msgid "Hibernate"
+msgstr ""
+
+#: semplice-logout:24 semplice-logout:186 semplice-logout:196
+#: semplice-logout:265
+msgid "Shutdown"
+msgstr ""
+
+#: semplice-logout:24 semplice-logout:186 semplice-logout:193
+#: semplice-logout:267
+msgid "Reboot"
+msgstr ""
+
+#: semplice-logout:115 semplice-logout:228
+#, python-format
+msgid ""
+"%s doesn't exists. Can't open GUI - use the command line frontend instead."
+msgstr ""
+
+#: semplice-logout:182
+msgid "<i>This will <b>close</b> all running applications.</i>"
+msgstr ""
+
+#: semplice-logout:183
+msgid "<i>On resume, all running applications will be <b>restored</b>.</i>"
+msgstr ""
+
+#: semplice-logout:186 semplice-logout:193 semplice-logout:269
+msgid "Reboot (Select no to launch Live System)"
+msgstr ""
+
+#: semplice-logout:219
+#, python-format
+msgid "<big><b>Do you <u>really</u> want to <i>%s</i>%s?</b></big>"
+msgstr ""
+
+#: nitrogen-add-wallpaper:21
+#, sh-format
+msgid "SYNTAX: $programname <option>"
+msgstr ""
+
+#: nitrogen-add-wallpaper:23
+msgid " --add|-a [image]\t\t- Adds the specified wallpaper."
+msgstr ""
+
+#: nitrogen-add-wallpaper:24
+msgid " --tempadd|-t [image]\t\t- Temporarly adds the specified wallpaper."
+msgstr ""
+
+#: nitrogen-add-wallpaper:26
+msgid ""
+"Launching the application without any argument will open the wallpaper "
+"selection dialog."
+msgstr ""
+
+#: nitrogen-add-wallpaper:38
+msgid "Add one or more wallpapers"
+msgstr ""
+
+#: nitrogen-add-wallpaper:39
+msgid "Wallpaper"
+msgstr ""
+
+#: nitrogen-add-wallpaper:40
+msgid "Multiple wallpapers are selected. Which wallpaper do you want to apply?"
+msgstr ""
+
+#: nitrogen-add-wallpaper:41
+msgid "Leave the current background"
+msgstr ""
+
+#: nitrogen-add-wallpaper:42
+msgid "Do you want to apply the selected wallpaper?"
+msgstr ""
+
+#: nitrogen-add-wallpaper:124
+msgid "E: You should specify the image!"
+msgstr ""
