@@ -216,7 +216,7 @@ class GUI:
 		self.singlew.set_icon(self.theme.load_icon(iconname, 16, 0))
 		
 		self.singlew.set_image(icon)
-		self.singlew.set_markup(_("<big><b>Do you <u>really</u> want to <i>%s</i>%s?</b></big>" % (action,suffix)))
+		self.singlew.set_markup(_("<big><b>Do you <u>really</u> want to <i>%s</i>?</b></big>" % action.lower()))
 		#self.singlew.format_secondary_markup(text)
 		
 		# Start timer class.

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-07-11 11:08+0200\n"
+"POT-Creation-Date: 2011-07-11 12:48+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -124,7 +124,7 @@ msgstr ""
 
 #: semplice-logout:219
 #, python-format
-msgid "<big><b>Do you <u>really</u> want to <i>%s</i>%s?</b></big>"
+msgid "<big><b>Do you <u>really</u> want to <i>%s</i>?</b></big>"
 msgstr ""
 
 #: nitrogen-add-wallpaper:21
