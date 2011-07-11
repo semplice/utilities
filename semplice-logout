@@ -38,7 +38,7 @@ def error(error,exit=None):
 		sys.exit(exit)
 
 def help():
-	print """SYNTAX: %s [option]
+	print _("""SYNTAX: %s [option]
 
  --lock			- Locks the screen
  --logout		- Exits from this Openbox session.
@@ -50,7 +50,7 @@ def help():
  --reboot-install	- Internal (used by installer).
  --last			- Last action (or action selected in config).
  
- --settings		- Configure semplice-logout beahviour.""" % (sys.argv[0])
+ --settings		- Configure semplice-logout beahviour.""" % (sys.argv[0]))
 
 
 # Core
@@ -181,7 +181,7 @@ class GUI:
 		
 		self.closetext = _("<i>This will <b>close</b> all running applications.</i>")
 		self.suspendtext = _("<i>On resume, all running applications will be <b>restored</b>.</i>")
-		self.suffix = " your system"
+		self.suffix = _(" your system")
 		
 		if action == _("Reboot") or action == _("Reboot (Select no to launch Live System)") or action == _("Shutdown") or action == _("Logout"):
 			text = self.closetext

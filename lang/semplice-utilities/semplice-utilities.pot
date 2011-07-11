@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-07-10 20:29+0200\n"
+"POT-Creation-Date: 2011-07-11 11:08+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -82,6 +82,24 @@ msgstr ""
 msgid "Reboot"
 msgstr ""
 
+#: semplice-logout:41
+#, python-format
+msgid ""
+"SYNTAX: %s [option]\n"
+"\n"
+" --lock\t\t\t- Locks the screen\n"
+" --logout\t\t- Exits from this Openbox session.\n"
+" --switch-user\t\t- Switch user (GDM3).\n"
+" --suspend\t\t- Uses UPower to suspend the system.\n"
+" --hibernate\t\t- Uses UPower to hibernate the system.\n"
+" --shutdown\t\t- Uses ConsoleKit to shutdown the system.\n"
+" --reboot\t\t- Uses ConsoleKit to reboot the system.\n"
+" --reboot-install\t- Internal (used by installer).\n"
+" --last\t\t\t- Last action (or action selected in config).\n"
+" \n"
+" --settings\t\t- Configure semplice-logout beahviour."
+msgstr ""
+
 #: semplice-logout:115 semplice-logout:228
 #, python-format
 msgid ""
@@ -94,6 +112,10 @@ msgstr ""
 
 #: semplice-logout:183
 msgid "<i>On resume, all running applications will be <b>restored</b>.</i>"
+msgstr ""
+
+#: semplice-logout:184
+msgid " your system"
 msgstr ""
 
 #: semplice-logout:186 semplice-logout:193 semplice-logout:269
