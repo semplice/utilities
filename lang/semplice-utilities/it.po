@@ -7,14 +7,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: semplice-utilities\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2011-07-10 20:29+0200\n"
-"PO-Revision-Date: 2011-07-10 20:44+0000\n"
+"POT-Creation-Date: 2011-07-11 12:48+0200\n"
+"PO-Revision-Date: 2011-07-11 14:16+0000\n"
 "Last-Translator: Eugenio \"g7\" Paolantonio <morarossa@gmail.com>\n"
 "Language-Team: Italian <it@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2011-07-11 05:42+0000\n"
+"X-Launchpad-Export-Date: 2011-07-12 05:49+0000\n"
 "X-Generator: Launchpad (build 13168)\n"
 
 #: semplice-about:36
@@ -72,36 +72,66 @@ msgstr "Pagina Principale del progetto"
 
 #: semplice-logout:24 semplice-logout:273 semplice-logout:295
 msgid "Lock Screen"
-msgstr "Blocca schermo"
+msgstr "Bloccare lo schermo"
 
 #: semplice-logout:24 semplice-logout:186 semplice-logout:199
 #: semplice-logout:259
 msgid "Logout"
-msgstr "Chiudi sessione"
+msgstr "Chiudere la sessione"
 
 #: semplice-logout:24 semplice-logout:271 semplice-logout:300
 msgid "Switch User"
-msgstr "Cambia Utente"
+msgstr "Cambiare utente"
 
 #: semplice-logout:24 semplice-logout:189 semplice-logout:203
 #: semplice-logout:261
 msgid "Suspend"
-msgstr "Sospendi"
+msgstr "Sospendere"
 
 #: semplice-logout:24 semplice-logout:189 semplice-logout:206
 #: semplice-logout:263
 msgid "Hibernate"
-msgstr "Iberna"
+msgstr "Ibernare"
 
 #: semplice-logout:24 semplice-logout:186 semplice-logout:196
 #: semplice-logout:265
 msgid "Shutdown"
-msgstr "Spegni"
+msgstr "Spegnere"
 
 #: semplice-logout:24 semplice-logout:186 semplice-logout:193
 #: semplice-logout:267
 msgid "Reboot"
-msgstr "Riavvia"
+msgstr "Riavviare"
+
+#: semplice-logout:41
+#, python-format
+msgid ""
+"SYNTAX: %s [option]\n"
+"\n"
+" --lock\t\t\t- Locks the screen\n"
+" --logout\t\t- Exits from this Openbox session.\n"
+" --switch-user\t\t- Switch user (GDM3).\n"
+" --suspend\t\t- Uses UPower to suspend the system.\n"
+" --hibernate\t\t- Uses UPower to hibernate the system.\n"
+" --shutdown\t\t- Uses ConsoleKit to shutdown the system.\n"
+" --reboot\t\t- Uses ConsoleKit to reboot the system.\n"
+" --reboot-install\t- Internal (used by installer).\n"
+" --last\t\t\t- Last action (or action selected in config).\n"
+" \n"
+" --settings\t\t- Configure semplice-logout beahviour."
+msgstr ""
+"SINTASSI: %s [opzione]\n"
+"\n"
+" --lock\t\t\t- Blocca lo schermo\n"
+" --logout[tab\t- Chiude la sessione Openbox.\n"
+" --switch-user\t\t- Usa UPower per sospendere il sistema.\n"
+" --hibernate\t\t- Usa UPower per ibernare il sistema.\n"
+" --shutdown\t\t- Usa ConsoleKit per spegnere il sistema.\n"
+" --reboot\t\t- Usa ConsoleKit per riavviare il sistema.\n"
+" --reboot-install\t- Comando interno (usato dall'installer).\n"
+" --last\t\t\t- Ultima azione (o azione selezionata nella configurazione)\n"
+" \n"
+" --settings\t\t- Configura il comportamento di semplice-logout."
 
 #: semplice-logout:115 semplice-logout:228
 #, python-format
@@ -122,14 +152,18 @@ msgstr ""
 "<i>Al ripristino, tutte le applicazioni in esecuzione saranno "
 "<b>ripristinate</b>.</i>"
 
+#: semplice-logout:184
+msgid " your system"
+msgstr " il tuo sistema"
+
 #: semplice-logout:186 semplice-logout:193 semplice-logout:269
 msgid "Reboot (Select no to launch Live System)"
-msgstr "Riavvia (Scegli no per lanciare il sistema Live)"
+msgstr "Riavviare (scegli no per lanciare il sistema Live)"
 
 #: semplice-logout:219
 #, python-format
-msgid "<big><b>Do you <u>really</u> want to <i>%s</i>%s?</b></big>"
-msgstr "<big><b>Vuoi <u>veramente</u> <i>%s</i>%s?</b></big>"
+msgid "<big><b>Do you <u>really</u> want to <i>%s</i>?</b></big>"
+msgstr "<big><b>Vuoi <u>veramente</u> <i>%s</i>?</b></big>"
 
 #: nitrogen-add-wallpaper:21
 #, sh-format
@@ -138,13 +172,12 @@ msgstr "SINTASSI: $programname <opzione>"
 
 #: nitrogen-add-wallpaper:23
 msgid " --add|-a [image]\t\t- Adds the specified wallpaper."
-msgstr " --add|-a [immagine]\t\t - Aggiunge lo sfondo specificato."
+msgstr " --add|-a [immagine]\t\t- Aggiunge lo sfondo specificato."
 
 #: nitrogen-add-wallpaper:24
 msgid " --tempadd|-t [image]\t\t- Temporarly adds the specified wallpaper."
 msgstr ""
-" --tempadd|-t [immagine]\t\t - Aggiunge temporaneamente lo sfondo "
-"specificato."
+" --tempadd|-t [immagine]\t\t- Aggiunge temporaneamente lo sfondo specificato."
 
 #: nitrogen-add-wallpaper:26
 msgid ""
@@ -178,3 +211,7 @@ msgstr "Vuoi applicare lo sfondo selezionato?"
 #: nitrogen-add-wallpaper:124
 msgid "E: You should specify the image!"
 msgstr "E: Devi specificare l'immagine!"
+
+#, python-format
+#~ msgid "<big><b>Do you <u>really</u> want to <i>%s</i>%s?</b></big>"
+#~ msgstr "<big><b>Vuoi <u>veramente</u> <i>%s</i>%s?</b></big>"
