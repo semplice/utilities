@@ -1,3 +1,9 @@
+semplice-utilities (1.12.2) emily; urgency=low
+
+  * Fixed header translation on semplice-logout
+
+ -- Eugenio (g7) <morarossa@gmail.com>  Sun, 17 Jul 2011 00:05:50 +0200
+
 semplice-utilities (1.12.1) emily; urgency=low
 
   * New upstream release.
