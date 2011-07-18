@@ -38,19 +38,19 @@ def error(error,exit=None):
 		sys.exit(exit)
 
 def help():
-	print _("""SYNTAX: %s [option]
-
- --lock			- Locks the screen
- --logout		- Exits from this Openbox session.
- --switch-user		- Switch user (GDM3).
- --suspend		- Uses UPower to suspend the system.
- --hibernate		- Uses UPower to hibernate the system.
- --shutdown		- Uses ConsoleKit to shutdown the system.
- --reboot		- Uses ConsoleKit to reboot the system.
- --reboot-install	- Internal (used by installer).
- --last			- Last action (or action selected in config).
- 
- --settings		- Configure semplice-logout beahviour.""" % (sys.argv[0]))
+	print(_("SYNTAX: %s [option]") % sys.argv[0])
+	print
+	print(_(" --lock			- Locks the screen"))
+	print(_(" --logout		- Exits from this Openbox session."))
+	print(_(" --switch-user		- Switch user (GDM3)."))
+	print(_(" --suspend		- Uses UPower to suspend the system."))
+	print(_(" --hibernate		- Uses UPower to hibernate the system."))
+	print(_(" --shutdown		- Uses ConsoleKit to shutdown the system."))
+	print(_(" --reboot		- Uses ConsoleKit to reboot the system."))
+	print(_(" --reboot-install	- Internal (used by installer)."))
+	print(_(" --last			- Last action (or action selected in config)."))
+	print
+	print(_(" --settings		- Configure semplice-logout behaviour."))
 
 
 # Core

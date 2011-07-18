@@ -33,9 +33,9 @@ class Info:
 		self.get_build()
 		self.get_version()
 
-		self.license = _("""
-All work done by the Semplice Project, if not declared, is released under the GNU GPL license, see below.
-
+		self.license = []
+		self.license.append(_("All work done by the Semplice Project, if not declared, is released under the GNU GPL license, see below."))
+		self.license.append("""
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
@@ -48,11 +48,12 @@ All work done by the Semplice Project, if not declared, is released under the GN
 
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
-
-For other applications, see /usr/share/doc/<packagename>/copyright.
-The most common licenses are available in /usr/share/common-licenses.
-		""")
+""")
+		self.license.append(_("For other applications, see /usr/share/doc/<packagename>/copyright."))
+		self.license.append(_("The most common licenses are available in /usr/share/common-licenses."))
 		
+		self.license = "\n".join(self.license)
+				
 		# Details
 		if LIVE == True:
 			self.about.set_name("Semplice Live") # We're into the Live System
