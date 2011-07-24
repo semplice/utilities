@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-07-11 12:48+0200\n"
+"POT-Creation-Date: 2011-07-25 01:03+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,35 +17,25 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: semplice-about:36
+#: semplice-about:37
 msgid ""
-"\n"
 "All work done by the Semplice Project, if not declared, is released under "
-"the GNU GPL license, see below.\n"
-"\n"
-"    This program is free software: you can redistribute it and/or modify\n"
-"    it under the terms of the GNU General Public License as published by\n"
-"    the Free Software Foundation, either version 3 of the License, or\n"
-"    (at your option) any later version.\n"
-"\n"
-"    This program is distributed in the hope that it will be useful,\n"
-"    but WITHOUT ANY WARRANTY; without even the implied warranty of\n"
-"    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\n"
-"    GNU General Public License for more details.\n"
-"\n"
-"    You should have received a copy of the GNU General Public License\n"
-"    along with this program.  If not, see <http://www.gnu.org/licenses/>.\n"
-"\n"
-"For other applications, see /usr/share/doc/<packagename>/copyright.\n"
-"The most common licenses are available in /usr/share/common-licenses.\n"
-"\t\t"
+"the GNU GPL license, see below."
 msgstr ""
 
-#: semplice-about:64
+#: semplice-about:52
+msgid "For other applications, see /usr/share/doc/<packagename>/copyright."
+msgstr ""
+
+#: semplice-about:53
+msgid "The most common licenses are available in /usr/share/common-licenses."
+msgstr ""
+
+#: semplice-about:65
 msgid "A simple, lightweight, fast and Debian-based GNU/Linux distribution."
 msgstr ""
 
-#: semplice-about:67
+#: semplice-about:68
 msgid "Project Homepage"
 msgstr ""
 
@@ -84,20 +74,47 @@ msgstr ""
 
 #: semplice-logout:41
 #, python-format
-msgid ""
-"SYNTAX: %s [option]\n"
-"\n"
-" --lock\t\t\t- Locks the screen\n"
-" --logout\t\t- Exits from this Openbox session.\n"
-" --switch-user\t\t- Switch user (GDM3).\n"
-" --suspend\t\t- Uses UPower to suspend the system.\n"
-" --hibernate\t\t- Uses UPower to hibernate the system.\n"
-" --shutdown\t\t- Uses ConsoleKit to shutdown the system.\n"
-" --reboot\t\t- Uses ConsoleKit to reboot the system.\n"
-" --reboot-install\t- Internal (used by installer).\n"
-" --last\t\t\t- Last action (or action selected in config).\n"
-" \n"
-" --settings\t\t- Configure semplice-logout beahviour."
+msgid "SYNTAX: %s [option]"
+msgstr ""
+
+#: semplice-logout:43
+msgid " --lock\t\t\t- Locks the screen"
+msgstr ""
+
+#: semplice-logout:44
+msgid " --logout\t\t- Exits from this Openbox session."
+msgstr ""
+
+#: semplice-logout:45
+msgid " --switch-user\t\t- Switch user (GDM3)."
+msgstr ""
+
+#: semplice-logout:46
+msgid " --suspend\t\t- Uses UPower to suspend the system."
+msgstr ""
+
+#: semplice-logout:47
+msgid " --hibernate\t\t- Uses UPower to hibernate the system."
+msgstr ""
+
+#: semplice-logout:48
+msgid " --shutdown\t\t- Uses ConsoleKit to shutdown the system."
+msgstr ""
+
+#: semplice-logout:49
+msgid " --reboot\t\t- Uses ConsoleKit to reboot the system."
+msgstr ""
+
+#: semplice-logout:50
+msgid " --reboot-install\t- Internal (used by installer)."
+msgstr ""
+
+#: semplice-logout:51
+msgid " --last\t\t\t- Last action (or action selected in config)."
+msgstr ""
+
+#: semplice-logout:53
+msgid " --settings\t\t- Configure semplice-logout behaviour."
 msgstr ""
 
 #: semplice-logout:115 semplice-logout:228
