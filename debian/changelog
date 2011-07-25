@@ -1,3 +1,9 @@
+semplice-utilities (1.12.3) emily; urgency=low
+
+  * Updated Italian translation.
+
+ -- Eugenio (g7) <morarossa@gmail.com>  Mon, 25 Jul 2011 11:37:22 +0200
+
 semplice-utilities (1.12.2) emily; urgency=low
 
   * Fixed header translation on semplice-logout
