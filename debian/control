@@ -8,7 +8,7 @@ Homepage: http://launchpad.net/semplice
 X-Python-Version: >=2.6
 
 Package: semplice-utilities
-Architecture: any
+Architecture: all
 Depends: ${misc:Depends}, ${python:Depends}, bash, zenity, mawk | gawk | original-awk, findutils, grep, wget, coreutils, openbox, python-gtk2, python-xdg, consolekit, upower, python-dbus
 Recommends: gdm
 Description: Semplice Linux Utilities

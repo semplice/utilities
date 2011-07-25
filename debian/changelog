@@ -1,3 +1,9 @@
+semplice-utilities (1.12.4) emily; urgency=low
+
+  * debian/control: Architecture: any -> all.
+
+ -- Eugenio (g7) <morarossa@gmail.com>  Mon, 25 Jul 2011 11:46:34 +0200
+
 semplice-utilities (1.12.3) emily; urgency=low
 
   * Updated Italian translation.
