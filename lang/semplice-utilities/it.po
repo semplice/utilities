@@ -8,13 +8,13 @@ msgstr ""
 "Project-Id-Version: semplice-utilities\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2011-07-25 01:03+0200\n"
-"PO-Revision-Date: 2011-07-11 14:16+0000\n"
+"PO-Revision-Date: 2011-07-25 09:18+0000\n"
 "Last-Translator: Eugenio Paolantonio <me@medesimo.eu>\n"
 "Language-Team: Italian <it@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2011-07-25 05:30+0000\n"
+"X-Launchpad-Export-Date: 2011-07-26 05:56+0000\n"
 "X-Generator: Launchpad (build 13405)\n"
 
 #: semplice-about:37
@@ -22,14 +22,18 @@ msgid ""
 "All work done by the Semplice Project, if not declared, is released under "
 "the GNU GPL license, see below."
 msgstr ""
+"Tutto il lavoro svolto dal Semplice Project, se non dichiarato in altre "
+"sedi, è rilasciato sotto i termini della GNU GPL, guarda sotto."
 
 #: semplice-about:52
 msgid "For other applications, see /usr/share/doc/<packagename>/copyright."
 msgstr ""
+"Per le altre applicazioni, guarda /usr/share/doc/<nomepacchetto>/copyright."
 
 #: semplice-about:53
 msgid "The most common licenses are available in /usr/share/common-licenses."
 msgstr ""
+"Le licenze più comuni sono disponibili in /usr/share/common-licenses."
 
 #: semplice-about:65
 msgid "A simple, lightweight, fast and Debian-based GNU/Linux distribution."
@@ -76,47 +80,48 @@ msgstr "Riavviare"
 #: semplice-logout:41
 #, python-format
 msgid "SYNTAX: %s [option]"
-msgstr ""
+msgstr "SINTASSI: %s [opzione]"
 
 #: semplice-logout:43
 msgid " --lock\t\t\t- Locks the screen"
-msgstr ""
+msgstr " --lock\t\t\t- Blocca lo schermo"
 
 #: semplice-logout:44
 msgid " --logout\t\t- Exits from this Openbox session."
-msgstr ""
+msgstr " --logout\t\t- Esce da questa sessione Openbox."
 
 #: semplice-logout:45
 msgid " --switch-user\t\t- Switch user (GDM3)."
-msgstr ""
+msgstr " --switch-user\t\t- Cambia utente (GDM3)."
 
 #: semplice-logout:46
 msgid " --suspend\t\t- Uses UPower to suspend the system."
-msgstr ""
+msgstr " --suspend\t\t- Usa UPower per sospendere il sistema."
 
 #: semplice-logout:47
 msgid " --hibernate\t\t- Uses UPower to hibernate the system."
-msgstr ""
+msgstr " --hibernate\t\t- Usa UPower per ibernare il sistema"
 
 #: semplice-logout:48
 msgid " --shutdown\t\t- Uses ConsoleKit to shutdown the system."
-msgstr ""
+msgstr " --shutdown\t\t- Usa ConsoleKit per spegnere il sistema."
 
 #: semplice-logout:49
 msgid " --reboot\t\t- Uses ConsoleKit to reboot the system."
-msgstr ""
+msgstr " --reboot\t\t- Usa ConsoleKit per riavviare il sistema."
 
 #: semplice-logout:50
 msgid " --reboot-install\t- Internal (used by installer)."
-msgstr ""
+msgstr " --reboot-install\t- Comando interno (usato dall'installer)"
 
 #: semplice-logout:51
 msgid " --last\t\t\t- Last action (or action selected in config)."
 msgstr ""
+" --last\t\t\t- Ultima azione (o azione selezionata nella configurazione)."
 
 #: semplice-logout:53
 msgid " --settings\t\t- Configure semplice-logout behaviour."
-msgstr ""
+msgstr " --settings\t\t- Configura il comportamento di semplice-logout."
 
 #: semplice-logout:115 semplice-logout:228
 #, python-format
