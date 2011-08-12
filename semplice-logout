@@ -88,11 +88,11 @@ class core:
 	
 	def do_suspend(self, one=False, two=False):
 		self.write_action_to_file("suspend")
-		up.Suspend(ignore_reply=True)
+		up.Suspend()
 	
 	def do_hibernate(self, one=False, two=False):
 		self.write_action_to_file("hibernate")
-		up.Hibernate(ignore_reply=True)
+		up.Hibernate()
 	
 	def do_lock(self, one=False, two=False, write=True):
 		if write: self.write_action_to_file("lock")
