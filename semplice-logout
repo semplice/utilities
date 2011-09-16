@@ -18,8 +18,8 @@ import ConfigParser as cfg
 import t9n.library
 _ = t9n.library.translation_init("semplice-utilities")
 
-#glade = "/usr/share/semplice-utilities/logout/logout.glade" # The glade gui.
-glade = "/home/g7/semplice/emily/util/semplice-utilities-1.13.0/logout.glade"
+glade = "/usr/share/semplice-utilities/logout/logout.glade" # The glade gui.
+#glade = "/home/g7/semplice/emily/util/semplice-utilities-1.13.0/logout.glade"
 action = False
 HOME = os.getenv("HOME")
 
@@ -246,11 +246,13 @@ class GUI:
 		def stop(self):
 			self.stopped = True
 	
-	def quit(self, one=False):
+	def quit(self, one=False, nogtk=False):
 		self.singlew.hide()
 		self.tim.stop()
 		gtk.gdk.threads_leave()
-		gtk.main_quit()
+		
+		if not nogtk:
+			gtk.main_quit()
 	
 	def act_helper(self, one=False):
 		self.act()
