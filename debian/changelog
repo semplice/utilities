@@ -1,10 +1,11 @@
-semplice-utilities (1.13.1) emily; urgency=low
+semplice-utilities (1.13.1-1) emily; urgency=low
 
   * semplice-logout: fixed quit() function when the user
     decided to not show the confirmation dialog.
   * semplice-logout: fixed glade path.
+  * debian/: full native package.
 
- -- Eugenio Paolantonio (g7) <me@medesimo.eu>  Fri, 16 Sep 2011 17:23:31 +0200
+ -- Eugenio Paolantonio (g7) <me@medesimo.eu>  Fri, 16 Sep 2011 17:24:11 +0200
 
 semplice-utilities (1.13.0) emily; urgency=low
 
