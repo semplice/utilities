@@ -1,8 +1,12 @@
-semplice-utilities (1.13.0) UNRELEASED; urgency=low
+semplice-utilities (1.13.0) emily; urgency=low
 
   * semplice-logout: do not ignore reply on upower calls
+  * semplice-logout: switched to a .ini configuration file that resiedes
+    in ~/.semplice-logout
+  * semplice-logout: added working "Settings" dialog
+  * semplice-logout: ability to not show confiirmation window.
 
- -- Eugenio Paolantonio (g7) <me@medesimo.eu>  Fri, 12 Aug 2011 17:18:52 +0200
+ -- Eugenio Paolantonio (g7) <me@medesimo.eu>  Thu, 15 Sep 2011 22:50:29 +0200
 
 semplice-utilities (1.12.4) emily; urgency=low
 

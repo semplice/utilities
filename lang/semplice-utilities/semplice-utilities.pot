@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-07-25 01:03+0200\n"
+"POT-Creation-Date: 2011-09-15 22:50+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -39,107 +39,108 @@ msgstr ""
 msgid "Project Homepage"
 msgstr ""
 
-#: semplice-logout:24 semplice-logout:273 semplice-logout:295
+#: semplice-logout:28 semplice-logout:382 semplice-logout:396 logout.glade.h:5
 msgid "Lock Screen"
 msgstr ""
 
-#: semplice-logout:24 semplice-logout:186 semplice-logout:199
-#: semplice-logout:259
+#: semplice-logout:28 semplice-logout:266 semplice-logout:279
+#: semplice-logout:368 logout.glade.h:6
 msgid "Logout"
 msgstr ""
 
-#: semplice-logout:24 semplice-logout:271 semplice-logout:300
+#: semplice-logout:28 semplice-logout:380 semplice-logout:401
+#: logout.glade.h:12
 msgid "Switch User"
 msgstr ""
 
-#: semplice-logout:24 semplice-logout:189 semplice-logout:203
-#: semplice-logout:261
+#: semplice-logout:28 semplice-logout:269 semplice-logout:283
+#: semplice-logout:370 logout.glade.h:11
 msgid "Suspend"
 msgstr ""
 
-#: semplice-logout:24 semplice-logout:189 semplice-logout:206
-#: semplice-logout:263
+#: semplice-logout:28 semplice-logout:269 semplice-logout:286
+#: semplice-logout:372 logout.glade.h:4
 msgid "Hibernate"
 msgstr ""
 
-#: semplice-logout:24 semplice-logout:186 semplice-logout:196
-#: semplice-logout:265
+#: semplice-logout:28 semplice-logout:266 semplice-logout:276
+#: semplice-logout:374 logout.glade.h:10
 msgid "Shutdown"
 msgstr ""
 
-#: semplice-logout:24 semplice-logout:186 semplice-logout:193
-#: semplice-logout:267
+#: semplice-logout:28 semplice-logout:266 semplice-logout:273
+#: semplice-logout:376 logout.glade.h:7
 msgid "Reboot"
 msgstr ""
 
-#: semplice-logout:41
+#: semplice-logout:47
 #, python-format
 msgid "SYNTAX: %s [option]"
 msgstr ""
 
-#: semplice-logout:43
+#: semplice-logout:49
 msgid " --lock\t\t\t- Locks the screen"
 msgstr ""
 
-#: semplice-logout:44
+#: semplice-logout:50
 msgid " --logout\t\t- Exits from this Openbox session."
 msgstr ""
 
-#: semplice-logout:45
+#: semplice-logout:51
 msgid " --switch-user\t\t- Switch user (GDM3)."
 msgstr ""
 
-#: semplice-logout:46
+#: semplice-logout:52
 msgid " --suspend\t\t- Uses UPower to suspend the system."
 msgstr ""
 
-#: semplice-logout:47
+#: semplice-logout:53
 msgid " --hibernate\t\t- Uses UPower to hibernate the system."
 msgstr ""
 
-#: semplice-logout:48
+#: semplice-logout:54
 msgid " --shutdown\t\t- Uses ConsoleKit to shutdown the system."
 msgstr ""
 
-#: semplice-logout:49
+#: semplice-logout:55
 msgid " --reboot\t\t- Uses ConsoleKit to reboot the system."
 msgstr ""
 
-#: semplice-logout:50
+#: semplice-logout:56
 msgid " --reboot-install\t- Internal (used by installer)."
 msgstr ""
 
-#: semplice-logout:51
+#: semplice-logout:57
 msgid " --last\t\t\t- Last action (or action selected in config)."
 msgstr ""
 
-#: semplice-logout:53
+#: semplice-logout:59
 msgid " --settings\t\t- Configure semplice-logout behaviour."
 msgstr ""
 
-#: semplice-logout:115 semplice-logout:228
+#: semplice-logout:188 semplice-logout:308
 #, python-format
 msgid ""
 "%s doesn't exists. Can't open GUI - use the command line frontend instead."
 msgstr ""
 
-#: semplice-logout:182
+#: semplice-logout:262
 msgid "<i>This will <b>close</b> all running applications.</i>"
 msgstr ""
 
-#: semplice-logout:183
+#: semplice-logout:263
 msgid "<i>On resume, all running applications will be <b>restored</b>.</i>"
 msgstr ""
 
-#: semplice-logout:184
+#: semplice-logout:264
 msgid " your system"
 msgstr ""
 
-#: semplice-logout:186 semplice-logout:193 semplice-logout:269
+#: semplice-logout:266 semplice-logout:273 semplice-logout:378
 msgid "Reboot (Select no to launch Live System)"
 msgstr ""
 
-#: semplice-logout:219
+#: semplice-logout:299
 #, python-format
 msgid "<big><b>Do you <u>really</u> want to <i>%s</i>?</b></big>"
 msgstr ""
@@ -185,4 +186,28 @@ msgstr ""
 
 #: nitrogen-add-wallpaper:124
 msgid "E: You should specify the image!"
+msgstr ""
+
+#: logout.glade.h:1
+msgid "<b>Default Action</b>"
+msgstr ""
+
+#: logout.glade.h:2
+msgid "<b>Dialog</b>"
+msgstr ""
+
+#: logout.glade.h:3
+msgid "Configure logout dialog"
+msgstr ""
+
+#: logout.glade.h:8
+msgid "Set default action for shortcut <b>CTRL+ALT+SPACE</b>:"
+msgstr ""
+
+#: logout.glade.h:9
+msgid "Show confirmation dialog"
+msgstr ""
+
+#: logout.glade.h:13
+msgid "Use last action"
 msgstr ""

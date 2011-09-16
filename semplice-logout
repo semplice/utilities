@@ -13,15 +13,21 @@ pygtk.require("2.0")
 import dbus
 import threading
 
+import ConfigParser as cfg
+
 import t9n.library
 _ = t9n.library.translation_init("semplice-utilities")
 
-glade = "/usr/share/semplice-utilities/logout/logout.glade" # The glade gui.
-#glade = "/home/g7/semplice/emily/util/semplice-utilities-1.11.1/logout.glade"
+#glade = "/usr/share/semplice-utilities/logout/logout.glade" # The glade gui.
+glade = "/home/g7/semplice/emily/util/semplice-utilities-1.13.0/logout.glade"
 action = False
 HOME = os.getenv("HOME")
 
-actions = {0:_("Lock Screen"), 1:_("Logout"), 2:_("Switch User"), 3:_("Suspend"), 4:_("Hibernate"), 5:_("Shutdown"), 6:_("Reboot")}
+cfile = os.path.join(HOME, ".semplice-logout")
+
+actions = {"lock":_("Lock Screen"), "logout":_("Logout"), "switch":_("Switch User"), "suspend":_("Suspend"), "hibernate":_("Hibernate"), "shutdown":_("Shutdown"), "reboot":_("Reboot")}
+sctions = {0:"last", 1:"lock", 2:"logout", 3:"switch", 4:"suspend", 5:"hibernate", 6:"shutdown", 7:"reboot"}
+snoitcs = {"last":0, "lock":1, "logout":2, "switch":3, "suspend":4, "hibernate":5, "shutdown":6, "reboot":7}
 
 # Open the system bus.
 bus = dbus.SystemBus()
@@ -52,6 +58,20 @@ def help():
 	print
 	print(_(" --settings		- Configure semplice-logout behaviour."))
 
+def get_n_parse(obj, sect, opt):
+	""" Get and parse an option value """
+	
+	value = obj.get(sect, opt)
+	if not value: return False
+	
+	if value.lower() in ("true","enabled"):
+		return True
+	elif value.lower() in ("false","disabled"):
+		return False
+	elif value.lower() in ("none"):
+		return None
+	else:
+		return value
 
 # Core
 class core:
@@ -67,10 +87,16 @@ class core:
 	def write_action_to_file(self, act):
 		""" Writes the action on ~/.lastlogoutchoice, which Alan's logout.py will parse. """
 		
-		actions = {"lock":0, "logout":1, "switch":2, "suspend":3, "hibernate":4, "shutdown":5, "reboot":6}
-		if not os.path.exists(os.path.join(HOME, ".lastlogoutchoice.lock")):
-			with open(os.path.join(HOME, ".lastlogoutchoice"), "w") as f:
-				f.write(str(actions[act]) + "\n")
+		if not lock:
+			# Write
+			config.set("Last", "last_action", act)
+			with open(cfile, "w") as f:
+				config.write(f)
+		
+		#actions = {"lock":0, "logout":1, "switch":2, "suspend":3, "hibernate":4, "shutdown":5, "reboot":6}
+		#if not os.path.exists(os.path.join(HOME, ".lastlogoutchoice.lock")):
+		#	with open(os.path.join(HOME, ".lastlogoutchoice"), "w") as f:
+		#		f.write(str(actions[act]) + "\n")
 	
 	def do_reboot(self, one=False, two=False):
 		self.write_action_to_file("reboot")
@@ -108,8 +134,55 @@ class core:
 ##### MAIN INTERFACE #####
 class SettingsGUI:
 	def quit(self, pinco):
+		
+		# Write configuration
+		with open(cfile, "w") as f:
+			config.write(f)
+		
 		gtk.main_quit()
 	
+	def show_dialog(self, obj):
+		""" Handle show_dialog checkbox. """
+		
+		status = obj.get_active()
+		if status == True:
+			config.set("Logout", "show_dialog", "True")
+		else:
+			config.set("Logout", "show_dialog", "False")
+	
+	def last_choice(self, obj):
+		""" Handle last choice. """
+		
+		active = sctions[obj.get_active()]
+		
+		if not active == "last":
+			config.set("Last", "lock", "True") # Ensure it is locked
+			config.set("Last", "last_action", active)
+		else:
+			config.set("Last", "lock", "False") # Unlock.
+			config.set("Last", "last_action", "None") # Reset last_action
+	
+	def defaults(self):
+		""" Reads configuration file to set choices at first open. """
+		
+		show_dialog = get_n_parse(config, "Logout", "show_dialog")
+		last_action = get_n_parse(config, "Last", "last_action")
+		lock = get_n_parse(config, "Last", "lock")
+		
+		# Set combosel
+		if not lock or last_action == "last":
+			# No lock, so it is use_last_action
+			self.combosel.set_active(0)
+		else:
+			self.combosel.set_active(snoitcs[last_action])
+		
+		# Set show_dialog
+		
+		if show_dialog:
+			self.cbox.set_active(True)
+		else:
+			self.cbox.set_active(False)
+		
 	def __init__(self):
 		if not os.path.isfile(glade):
 			error(_("%s doesn't exists. Can't open GUI - use the command line frontend instead." % (glade)),1)
@@ -128,9 +201,6 @@ class SettingsGUI:
 		# Connect button
 		self.close.connect("clicked",self.quit)
 		
-		# Get radiobuttons...
-		self.last = builder.get_object("last")
-		self.selection = builder.get_object("selection")
 		# Combobox of selection radiobutton
 		self.combosel = builder.get_object("combosel")
 		self.combosel_list = builder.get_object("combosel_list")
@@ -139,6 +209,16 @@ class SettingsGUI:
 		cell = gtk.CellRendererText()
 		self.combosel.pack_start(cell, True)
 		self.combosel.add_attribute(cell, 'text',0)
+
+		# Dialog checkbox
+		self.cbox = builder.get_object("show_dialog")
+
+		# Defaults
+		self.defaults()
+
+		# Connect
+		self.combosel.connect("changed", self.last_choice)		
+		self.cbox.connect("clicked", self.show_dialog)
 
 		self.settingsw.show()
 
@@ -247,7 +327,36 @@ class GUI:
 			self.no.connect("clicked",self.quit)
 			self.connect_single()
 			
-			self.singlew.show()
+			if show:
+				self.singlew.show()
+			else:
+				# Do, then quit
+				self.act_helper()
+
+# Load configuration object
+config = cfg.SafeConfigParser()
+
+# Create configuration file, if not any
+if not os.path.exists(cfile):
+	# Create it.
+	config.add_section("Logout")
+	config.set("Logout", "show_dialog", "True") # Show logout dialog by default.
+	
+	config.add_section("Last")
+	config.set("Last", "last_action", "None")
+	config.set("Last", "lock", "False") # Do not lock by default.
+	
+	# Write.
+	with open(cfile, "w") as f:
+		config.write(f)
+
+# Read.
+config.read(cfile)
+
+# Get options
+show = get_n_parse(config, "Logout", "show_dialog")
+
+lock = get_n_parse(config, "Last", "lock")
 
 gtk.gdk.threads_init()
 c = core()
@@ -272,18 +381,10 @@ elif sys.argv[1] == "--switch-user":
 elif sys.argv[1] == "--lock":
 	action = _("Lock Screen")
 elif sys.argv[1] == "--last":
-	# Read ~/.lastlogoutchoice(.lock)
-	fil = os.path.join(HOME, ".lastlogoutchoice.lock")
-	if not os.path.exists(fil):
-		# Use .lastlogoutchoice instead
-		fil = os.path.join(HOME, ".lastlogoutchoice")
-		if not os.path.exists(fil):
-			# First run?
-			error("No .lastlogoutchoice (or .lastlogoutchoice.lock) found. First run an action then re-run this command")
-			sys.exit(1)
-
-	with open(fil) as f:
-		action = actions[int(f.readline())]
+	# Get last
+	last = get_n_parse(config, "Last", "last_action")
+	if last:
+		action = actions[last]
 elif sys.argv[1] == "--settings":
 	# Launch settings :D
 	action = "Settings"
