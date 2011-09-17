@@ -8,7 +8,7 @@
 
 import os, sys, time
 import glob
-import pygtk, gtk, gtk.gdk
+import pygtk, gtk, gtk.gdk, gtk.glade
 pygtk.require("2.0")
 import dbus
 import threading
@@ -17,6 +17,8 @@ import ConfigParser as cfg
 
 import t9n.library
 _ = t9n.library.translation_init("semplice-utilities")
+gtk.glade.bindtextdomain("semplice-utilities", "/usr/share/locale")
+gtk.glade.textdomain("semplice-utilities")
 
 glade = "/usr/share/semplice-utilities/logout/logout.glade" # The glade gui.
 #glade = "/home/g7/semplice/emily/util/semplice-utilities-1.13.0/logout.glade"

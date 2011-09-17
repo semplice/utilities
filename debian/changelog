@@ -1,3 +1,9 @@
+semplice-utilities (1.13.3-1) emily; urgency=low
+
+  * semplice-logout: handle glade translation.
+
+ -- Eugenio Paolantonio (g7) <me@medesimo.eu>  Sat, 17 Sep 2011 16:31:40 +0200
+
 semplice-utilities (1.13.2-1) emily; urgency=low
 
   * semplice-logout: updated translations.
