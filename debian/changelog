@@ -1,3 +1,10 @@
+semplice-utilities (1.13.4-1) emily; urgency=low
+
+  * xdg-autostart: do not start applications already started
+    by openbox-session.
+
+ -- Eugenio Paolantonio (g7) <me@medesimo.eu>  Sat, 08 Oct 2011 15:47:40 +0200
+
 semplice-utilities (1.13.3-1) emily; urgency=low
 
   * semplice-logout: handle glade translation.
