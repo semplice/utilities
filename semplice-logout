@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 #
 # A simple script to Logout, Shutdown, Reboot, Suspend, Hibernate and Change User via ConsoleKit and UPower...
-# (C) 2010 Eugenio "g7" Paolantonio, <morarossa@gmail.com>. All rights reserved.
+# (C) 2010 Eugenio "g7" Paolantonio, <me@medesimo.eu>. All rights reserved.
 # Work released under the terms of the GNU GPL license, version 3 or later.
 #
 
