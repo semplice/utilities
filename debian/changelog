@@ -1,3 +1,11 @@
+semplice-utilities (2.0.1-1) emily; urgency=low
+
+  * semplice-logout: properly handle missing icons and missing
+    pcmanfm sockets.
+  * semplice-about: updated.
+
+ -- Eugenio Paolantonio (g7) <me@medesimo.eu>  Sun, 15 Jan 2012 11:43:35 +0100
+
 semplice-utilities (1.13.4-1) emily; urgency=low
 
   * xdg-autostart: do not start applications already started

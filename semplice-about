@@ -1,9 +1,8 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 #
-# semplice-about: about dialog for semplice \o/
-# Copyright (C) 2009-11 Semplice Team. All rights reserved.
-# SEMPLICE IS COOOOOOOOOOOOOOOOL \o\ \o/ /o/
+# semplice-about: about dialog for semplice
+# Copyright (C) 2009-12 Semplice Project. All rights reserved.
 #
 # This file is part of the semplice-utilities package
 #
@@ -61,11 +60,11 @@ class Info:
 			self.about.set_name("Semplice Desktop") # We're into the Semplice System (installed system)
 
 		self.about.set_version("%s (%s; %s)" % (self.version, self.arch, self.build)) # Version
-		self.about.set_copyright("Copyright (C) 2009-11 The Semplice Linux Team") # Copyright
+		self.about.set_copyright("Copyright (C) 2009-12 Semplice Project") # Copyright
 		self.about.set_comments(_("A simple, lightweight, fast and Debian-based GNU/Linux distribution."))
 		self.about.set_license(self.license)
-	   	self.about.set_website("http://semplice-linux.sourceforge.net")
-		self.about.set_website_label(_("Project Homepage"))
+	   	self.about.set_website("http://semplice-linux.org")
+		self.about.set_website_label("semplice-linux.org")
 		self.about.set_authors(["Eugenio \"g7\" Paolantonio <me@medesimo.eu>", "Luca B. <sidtux@gmail.com>"])
 		
 		self.about.run()

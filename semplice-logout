@@ -79,12 +79,12 @@ def get_n_parse(obj, sect, opt):
 class core:
 	def delete_pcmanfm_socket(self):
 		""" This function will delete all user's pcmanfm sockets (if any) for the current user in /tmp. """
-		for socket in glob.glob("/tmp/.pcmanfm-socket-*-" + os.getenv("USER")):
-			try:
+		try:
+			for socket in glob.glob("/tmp/.pcmanfm-socket-*-" + os.getenv("USER")):
 				os.remove(socket)
-			except:
-				# Nothing faulty will happen if the socket is not removed; the user will just cannot open the file manager, a reboot will fix the problem.
-				pass
+		except:
+			# Nothing faulty will happen if the socket is not removed; the user will just cannot open the file manager, a reboot will fix the problem.
+			pass
 	
 	def write_action_to_file(self, act):
 		""" Writes the action on ~/.lastlogoutchoice, which Alan's logout.py will parse. """
@@ -291,15 +291,22 @@ class GUI:
 			iconname = "system-hibernate"
 			self.act = self.sclass.do_hibernate
 		
-		icon = gtk.image_new_from_pixbuf(self.theme.load_icon(iconname, 48, 0))
-		icon.show()
+		try:
+			icon = gtk.image_new_from_pixbuf(self.theme.load_icon(iconname, 48, 0))
+			icon.show()
+		except:
+			pass
 		
 		self.yes.connect("clicked",self.act_helper)
 		
 		self.singlew.set_title(action)
-		self.singlew.set_icon(self.theme.load_icon(iconname, 16, 0))
 		
-		self.singlew.set_image(icon)
+		try:
+			self.singlew.set_icon(self.theme.load_icon(iconname, 16, 0))
+			self.singlew.set_image(icon)
+		except:
+			pass
+
 		self.singlew.set_markup(_("<big><b>Do you <u>really</u> want to <i>%s</i>?</b></big>") % action.lower())
 		#self.singlew.format_secondary_markup(text)
 		
