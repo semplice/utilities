@@ -1,7 +1,7 @@
 Source: semplice-utilities
 Section: utils
 Priority: optional
-Maintainer: Eugenio (g7) <morarossa@gmail.com>
+Maintainer: Eugenio Paolantonio (g7) <me@medesimo.eu>
 Build-Depends: debhelper (>= 7), python
 Standards-Version: 3.9.2
 Homepage: http://launchpad.net/semplice

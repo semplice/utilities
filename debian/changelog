@@ -4,8 +4,9 @@ semplice-utilities (2.10.0-1) pulse; urgency=low
   * mirrorselect: new release 1.0. Supports debian set,
     deb-srcs, set releases.
   * semplice.list: updated to work with mirrorselect 1.0.
+  * Updated Maintainer to match my new gpg key.
 
- -- Eugenio Paolantonio (g7) <me@medesimo.eu>  Thu, 19 Jan 2012 17:01:38 +0100
+ -- Eugenio Paolantonio (g7) <me@medesimo.eu>  Thu, 19 Jan 2012 17:05:03 +0100
 
 semplice-utilities (2.0.1-1) emily; urgency=low
 
