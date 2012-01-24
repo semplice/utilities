@@ -2,7 +2,7 @@
 
 #
 # nitrogen-add-wallpaper: Simply add wallpapers to nitrogen library (without specify the directory!)
-# (C) 2010 Semplice Team. All rights reserved.
+# (C) 2010-12 Semplice Team. All rights reserved.
 # This file is part of the semplice-utilities package.
 # All of this work is released under the terms of the GNU GPLv3 License (or later).
 #
@@ -42,7 +42,8 @@ __leave="`gettext \"Leave the current background\"`"
 __apply="`gettext \"Do you want to apply the selected wallpaper?\"`"
 
 dialog() {
-	WALLS="`zenity --window-icon /usr/share/icons/hicolor/48x48/apps/nitrogen.png --title=\"$__title\" --file-selection  --separator=\" \" --multiple --file-filter=\"*\" --file-filter=\"*.jpg\" --file-filter=\"*.png\"`"
+	WALLS="`zenity --window-icon /usr/share/icons/hicolor/48x48/apps/nitrogen.png --title=\"$__title\" --file-selection  --separator=\"
+\" --multiple --file-filter=\"*\" --file-filter=\"*.jpg\" --file-filter=\"*.png\"`"
 }
 
 return_name() {
@@ -74,7 +75,7 @@ add() {
 	fi
 	
 	walls="0"
-	for WALL in $WALLS; do
+	for WALL in "$WALLS"; do
 		let walls=walls+1
 		return_name $WALL
 		ln -s $WALL $NEWNAME

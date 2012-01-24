@@ -1,3 +1,9 @@
+semplice-utilities (2.10.1-1) pulse; urgency=low
+
+  * nitrogen-add-wallpaper: handle paths with spaces.
+
+ -- Eugenio Paolantonio (g7) <me@medesimo.eu>  Tue, 24 Jan 2012 19:18:36 +0100
+
 semplice-utilities (2.10.0-1) pulse; urgency=low
 
   * Initial pulse release.
