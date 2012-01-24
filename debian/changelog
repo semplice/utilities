@@ -1,3 +1,9 @@
+semplice-utilities (2.10.2-2) pulse; urgency=low
+
+  * nitrogen-add-wallpaper: properly symlink spaced paths.
+
+ -- Eugenio Paolantonio (g7) <me@medesimo.eu>  Tue, 24 Jan 2012 22:49:05 +0100
+
 semplice-utilities (2.10.1-1) pulse; urgency=low
 
   * nitrogen-add-wallpaper: handle paths with spaces.

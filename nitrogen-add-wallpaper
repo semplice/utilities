@@ -77,8 +77,8 @@ add() {
 	walls="0"
 	for WALL in "$WALLS"; do
 		let walls=walls+1
-		return_name $WALL
-		ln -s $WALL $NEWNAME
+		return_name "$WALL"
+		ln -s "$WALL" "$NEWNAME"
 		
 		_WALL="$NEWNAME"
 		_WALLS="$_WALLS FALSE `basename $NEWNAME`"
