@@ -22,6 +22,10 @@
 ME="openbox-xdg-autostart"
 VERSION="1.1"
 
+BLACKLIST=("/usr/lib/notification-daemon/notification-daemon",
+"/usr/lib/xfce4/notifyd/xfce4-notifyd",
+)
+
 import os, glob, sys
 try:
     from xdg import BaseDirectory
@@ -147,8 +151,14 @@ class AutostartFile:
         # Since the OPENBOX applications are already started, we should not re-launch an application
         # if it is to be showed too in that environment.
         if self._showInEnvironment(["OPENBOX"], verbose):
+            if verbose: self._alert("Excluded by: Already started by OPENBOX.")
             return False
         # End.
+        
+        # Do not run executables in blacklist
+        if self.de.getExec() in BLACKLIST:
+			if verbose: self._alert("Excluded by: Blacklisted Exec")
+			return False
         
         return True
 

@@ -1,3 +1,10 @@
+semplice-utilities (2.10.4-1) pulse; urgency=low
+
+  * xdg-autostart: BLACKLIST for executables support.
+    Blacklisted notification-daemon and xfce4-notifyd.
+
+ -- Eugenio Paolantonio (g7) <me@medesimo.eu>  Mon, 06 Feb 2012 22:16:20 +0100
+
 semplice-utilities (2.10.3-1) pulse; urgency=low
 
   * mirrorselect: use only http by default (-f switch to use ftp);
