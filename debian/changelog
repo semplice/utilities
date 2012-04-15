@@ -1,3 +1,10 @@
+semplice-utilities (2.11.0-1) pulse; urgency=low
+
+  * mirrorselect: fixed debian mirror discovering.
+  * mirrorselect: added -u switch which skips the execution of update.
+
+ -- Eugenio Paolantonio (g7) <me@medesimo.eu>  Sun, 15 Apr 2012 19:06:28 +0200
+
 semplice-utilities (2.10.4-1) pulse; urgency=low
 
   * xdg-autostart: BLACKLIST for executables support.
