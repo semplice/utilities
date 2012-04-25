@@ -65,7 +65,7 @@ class Info:
 		self.about.set_license(self.license)
 	   	self.about.set_website("http://semplice-linux.org")
 		self.about.set_website_label("semplice-linux.org")
-		self.about.set_authors(["Eugenio \"g7\" Paolantonio <me@medesimo.eu>", "Luca B. <sidtux@gmail.com>"])
+		self.about.set_authors(["Eugenio \"g7\" Paolantonio <me@medesimo.eu>", "Luca Boncore <sidtux@gmail.com>"])
 		
 		self.about.run()
 		sys.exit(0)
