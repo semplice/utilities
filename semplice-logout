@@ -27,9 +27,9 @@ HOME = os.getenv("HOME")
 
 cfile = os.path.join(HOME, ".semplice-logout")
 
-actions = {"lock":_("Lock Screen"), "logout":_("Logout"), "switch":_("Switch User"), "suspend":_("Suspend"), "hibernate":_("Hibernate"), "shutdown":_("Shutdown"), "reboot":_("Reboot")}
-sctions = {0:"last", 1:"lock", 2:"logout", 3:"switch", 4:"suspend", 5:"hibernate", 6:"shutdown", 7:"reboot"}
-snoitcs = {"last":0, "lock":1, "logout":2, "switch":3, "suspend":4, "hibernate":5, "shutdown":6, "reboot":7}
+actions = {"lock":_("Lock Screen"), "logout":_("Logout"), "switch":_("Switch User"), "suspend":_("Suspend"), "hibernate":_("Hibernate"), "shutdown":_("Shutdown"), "reboot":_("Reboot"), "switch_guest":_("Guest session")}
+sctions = {0:"last", 1:"lock", 2:"logout", 3:"switch", 4:"suspend", 5:"hibernate", 6:"shutdown", 7:"reboot", 8:"switch_guest"}
+snoitcs = {"last":0, "lock":1, "logout":2, "switch":3, "suspend":4, "hibernate":5, "shutdown":6, "reboot":7, "switch_guest":8}
 
 # Open the system bus.
 bus = dbus.SystemBus()
@@ -50,7 +50,9 @@ def help():
 	print
 	print(_(" --lock			- Locks the screen"))
 	print(_(" --logout		- Exits from this Openbox session."))
-	print(_(" --switch-user		- Switch user (GDM3)."))
+	print(_(" --switch-user		- Switch user (lightdm)."))
+	print(_(" --switch-to-guest		- Switch to the guest session (lightdm)."))
+	print(_(" --switch-to <user>		- Switch to <user> (lightdm)."))
 	print(_(" --suspend		- Uses UPower to suspend the system."))
 	print(_(" --hibernate		- Uses UPower to hibernate the system."))
 	print(_(" --shutdown		- Uses ConsoleKit to shutdown the system."))
@@ -126,12 +128,26 @@ class core:
 		if write: self.write_action_to_file("lock")
 		os.system("xscreensaver-command --lock")
 	
-	def do_switch(self, one=False, two=False):
+	def do_switch(self):
 		# First, lock the screen
 		self.do_lock(write=False)
 		# Then switch
 		self.write_action_to_file("switch")
-		os.system("gdmflexiserver")
+		os.system("dm-tool switch-to-greeter")
+	
+	def do_switch_guest(self):
+		# First, lock the screen
+		self.do_lock(write=False)
+		# Then switch
+		self.write_action_to_file("switch_guest")
+		os.system("dm-tool switch-to-guest")
+	
+	def do_switch_to(self, user):
+		# First, lock the screen
+		self.do_lock(write=False)
+		# Then switch (do not write.)
+		os.system("dm-tool switch-to-user %s" % user)
+
 
 ##### MAIN INTERFACE #####
 class SettingsGUI:
@@ -265,6 +281,7 @@ class GUI:
 		
 		self.closetext = _("<i>This will <b>close</b> all running applications.</i>")
 		self.suspendtext = _("<i>On resume, all running applications will be <b>restored</b>.</i>")
+		self.livetext = _("<i>If prompted for a password, insert <b>live</b>.</i>")
 		self.suffix = _(" your system")
 		
 		if action == _("Reboot") or action == _("Reboot (Select no to launch Live System)") or action == _("Shutdown") or action == _("Logout"):
@@ -273,6 +290,11 @@ class GUI:
 		elif action == _("Suspend") or action == _("Hibernate"):
 			text = self.suspendtext
 			suffix = self.suffix
+		elif action == _("Lock Screen"): # if we are here via Lock Screen, we're on live.
+			text = self.livetext
+			suffix = ""
+			self.act = self.sclass.do_lock
+			iconname = "system-lock-screen"
 		
 		if action == _("Reboot") or action == _("Reboot (Select no to launch Live System)"):
 			iconname = "stock_refresh"
@@ -388,7 +410,12 @@ elif sys.argv[1] == "--reboot":
 elif sys.argv[1] == "--reboot-install":
 	action = _("Reboot (Select no to launch Live System)")
 elif sys.argv[1] == "--switch-user":
-	action = _("Switch User")
+	action = "switch"
+elif sys.argv[1] == "--switch-to-guest":
+	action = "switch_guest"
+elif sys.argv[1] == "--switch-to":
+	action = "switch_to"
+	user = sys.argv[2] # Needs checking, but hey, we do really need it? It's great that this application has an help message! ;)
 elif sys.argv[1] == "--lock":
 	action = _("Lock Screen")
 elif sys.argv[1] == "--last":
@@ -408,9 +435,17 @@ elif action == _("Lock Screen"):
 	if not os.path.exists("/etc/semplice-live-mode"):
 		# Needs result control
 		c.do_lock()
-	sys.exit(0)
-elif action == _("Switch User"):
+		sys.exit(0)
+elif action == "switch":
 	c.do_switch()
+	# Needs result control
+	sys.exit(0)
+elif action == "switch_guest":
+	c.do_switch_guest()
+	# Needs result control
+	sys.exit(0)
+elif action == "switch_to":
+	c.do_switch_to(user)
 	# Needs result control
 	sys.exit(0)
 
