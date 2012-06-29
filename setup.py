@@ -6,12 +6,12 @@
 from distutils.core import setup
 
 setup(name='semplice-utilities',
-      version='1.12.0',
+      version='1.13.0',
       description='Semplice Linux Utilities',
       author='Eugenio Paolantonio and the Semplice Team',
       author_email='me@medesimo.eu',
       url='http://launchpad.net/semplice',
       scripts=['semplice-about', 'semplice-logout', 'xdg-autostart'],
-      data_files=[("/usr/bin", ["nitrogen-add-wallpaper", "mirrorselect", "smxi", "hybridswitch"]), ("/usr/share/semplice-utilities/mirrorselect", ["semplice.list"]), ("/usr/share/semplice-utilities/logout", ["logout.glade"])],
+      data_files=[("/usr/bin", ["semplice-help-irc", "nitrogen-add-wallpaper", "mirrorselect", "smxi", "hybridswitch"]), ("/usr/share/semplice-utilities/mirrorselect", ["semplice.list"]), ("/usr/share/semplice-utilities/logout", ["logout.glade"])],
       requires=['os', 'sys', 'time', 'glob', 'pygtk', 'gtk', 'gtk.gdk', 'dbus', 'threading', 'xdg', 'xdg.DesktopEntry', 'xdg.Exceptions'],
      )
