@@ -10,7 +10,7 @@ X-Python-Version: >=2.6
 Package: semplice-utilities
 Architecture: all
 Depends: ${misc:Depends}, ${python:Depends}, bash, zenity, mawk | gawk | original-awk, findutils, grep, wget, coreutils, openbox, python-gtk2, python-xdg, consolekit, upower, python-dbus, netselect
-Recommends: gdm
+Recommends: xchat
 Description: Semplice Linux Utilities
  This package contains the Semplice Linux utilities.
  Actually, it contains:
@@ -21,5 +21,7 @@ Description: Semplice Linux Utilities
   * semplice-about: an about dialog for Semplice.
   * nitrogen-add-wallpaper: Simple script to add single
     wallpapers to the nitrogen library.
+  * semplice-help-irc: Instant-on XChat for getting help on
+    Semplice's help channels. 
   * smxi, inxi, sgfxi, svmi: stub scripts to download
     these utilities. See http://smxi.org.

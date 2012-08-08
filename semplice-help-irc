@@ -6,6 +6,11 @@
 # This script is released under the terms of the GNU GPL license, version 3 or later.
 #
 
+if [ ! -e "/usr/bin/xchat" ]; then
+	echo "E: XChat is not installed!"
+	exit 1
+fi
+
 # t9n
 source gettext.sh
 

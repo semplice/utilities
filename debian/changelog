@@ -1,3 +1,14 @@
+semplice-utilities (2.13.1-0) pulse; urgency=low
+
+  * Syncronized translations
+  * Check for XChat in semplice-help-irc
+  * debian/:
+    - removed gdm from Recommends
+    - added xchat to Recommends
+    - updated description.
+
+ -- Eugenio Paolantonio <g7@localhost>  Wed, 08 Aug 2012 17:00:42 +0200
+
 semplice-utilities (2.13.0-2) pulse; urgency=low
 
   * added semplice-help-irc.
