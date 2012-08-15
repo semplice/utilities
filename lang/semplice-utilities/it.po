@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: semplice-utilities\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2012-08-08 16:59+0200\n"
-"PO-Revision-Date: 2011-09-16 16:52+0000\n"
-"Last-Translator: Eugenio Paolantonio <me@medesimo.eu>\n"
+"PO-Revision-Date: 2012-08-14 06:14+0000\n"
+"Last-Translator: Andrea Bernini <andrea.bernini@gmail.com>\n"
 "Language-Team: Italian <it@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2012-08-09 05:22+0000\n"
-"X-Generator: Launchpad (build 15761)\n"
+"X-Launchpad-Export-Date: 2012-08-15 05:12+0000\n"
+"X-Generator: Launchpad (build 15801)\n"
 
 #: semplice-about:36
 msgid ""
@@ -76,7 +76,7 @@ msgstr "Riavviare"
 
 #: semplice-logout:30
 msgid "Guest session"
-msgstr ""
+msgstr "Sessione ospite"
 
 #: semplice-logout:49
 #, python-format
@@ -93,15 +93,15 @@ msgstr " --logout\t\t- Esce da questa sessione Openbox."
 
 #: semplice-logout:53
 msgid " --switch-user\t\t- Switch user (lightdm)."
-msgstr ""
+msgstr " --switch-user \t\t- Cambia utente (lightdm)."
 
 #: semplice-logout:54
 msgid " --switch-to-guest\t\t- Switch to the guest session (lightdm)."
-msgstr ""
+msgstr " --switch-to-guest\t\t- Passa alla sessione ospite (lightdm)."
 
 #: semplice-logout:55
 msgid " --switch-to <user>\t\t- Switch to <user> (lightdm)."
-msgstr ""
+msgstr " --switch-to <utente>\t\t- Passa a <utente> (lightdm)."
 
 #: semplice-logout:56
 msgid " --suspend\t\t- Uses UPower to suspend the system."
@@ -153,7 +153,7 @@ msgstr ""
 
 #: semplice-logout:284
 msgid "<i>If prompted for a password, insert <b>live</b>.</i>"
-msgstr ""
+msgstr "<i>se viene richiesta una password inserire <b>live</b>.</i>"
 
 #: semplice-logout:285
 msgid " your system"
@@ -217,12 +217,14 @@ msgstr "E: Devi specificare l'immagine!"
 
 #: semplice-help-irc:21
 msgid "Enter your username"
-msgstr ""
+msgstr "Inserire l'username"
 
 #: semplice-help-irc:22
 msgid ""
 "Please enter the username to use for the login on Semplice's support channel."
 msgstr ""
+"Per favore inserire l'username da utilizzare per il login sul canale di "
+"supporto Semplice"
 
 #: logout.glade.h:1
 msgid "Use last action"
