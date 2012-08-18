@@ -1,0 +1,50 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+#
+# semplice-change-face: choose your login avatar.
+# Copyright (c) 2009-12 Semplice Project. All rights reserved.
+#
+# This file is part of the semplice-utilities package
+#
+
+import os
+import sys
+import shutil
+import gi
+from gi.repository import Gtk
+gi.require_version('Gtk', '3.0')
+
+HOME = os.environ["HOME"]
+
+class SelectAvatar:
+    def __init__(self):
+        # Initialize the main window
+        self.builder = Gtk.Builder()
+        self.builder.add_from_file("/usr/share/semplice-utilities/change-face/avatar.glade")
+        self.window = self.builder.get_object("select_avatar") # The main Glade object
+        
+        if self.window:
+            self.window.connect("destroy", Gtk.main_quit)
+        
+        # The FileChooser dialog
+        self.chooser = self.builder.get_object("face_chooser")
+
+        # The 'Apply' button
+        self.applybtn = self.builder.get_object("apply_btn")
+        self.applybtn.connect("clicked", self.apply)
+
+        # The 'Close' button. Quite self-explaining.
+        self.quitbtn = self.builder.get_object("cancel_btn")
+        self.quitbtn.connect("clicked", self.close)
+        
+    def apply(self, obj): # Let's do the magic.
+        avatar = self.chooser.get_filename()
+        shutil.copy2(avatar, os.path.join(HOME, ".face"))
+        sys.exit(0)
+        
+    def close(self, obj): # Guess what? It closes the app.
+        sys.exit(0)
+
+Gui = SelectAvatar()
+Gui.window.show()
+Gtk.main()
