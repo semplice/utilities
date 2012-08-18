@@ -23,5 +23,7 @@ Description: Semplice Linux Utilities
     wallpapers to the nitrogen library.
   * semplice-help-irc: Instant-on XChat for getting help on
     Semplice's help channels. 
+  * semplice-change-face: Simple utility to change your
+    avatar.
   * smxi, inxi, sgfxi, svmi: stub scripts to download
     these utilities. See http://smxi.org.
