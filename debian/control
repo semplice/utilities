@@ -9,7 +9,7 @@ X-Python-Version: >=2.6
 
 Package: semplice-utilities
 Architecture: all
-Depends: ${misc:Depends}, ${python:Depends}, bash, zenity, mawk | gawk | original-awk, findutils, grep, wget, coreutils, openbox, python-gtk2, python-xdg, consolekit, upower, python-dbus, netselect
+Depends: ${misc:Depends}, ${python:Depends}, bash, zenity, mawk | gawk | original-awk, findutils, grep, wget, coreutils, openbox, python-gtk2, python-xdg, consolekit, upower, python-dbus, netselect, python-gi, gir1.2-gtk-3.0
 Recommends: xchat
 Description: Semplice Linux Utilities
  This package contains the Semplice Linux utilities.

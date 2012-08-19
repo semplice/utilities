@@ -1,8 +1,8 @@
-semplice-utilities (2.13.2-0) push; urgency=low
+semplice-utilities (2.13.2-0) pulse; urgency=low
 
   * Added semplice-change-face.
 
- -- Luca B. (sidtux) <sidtux@gmail.com>  Sat, 18 Aug 2012 23:22:37 +0200
+ -- Luca B. (tuxpenguin) <sidtux@gmail.com>  Sat, 18 Aug 2012 23:22:37 +0200
 
 semplice-utilities (2.13.1-0) pulse; urgency=low
 
