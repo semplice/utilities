@@ -21,7 +21,7 @@ class SelectAvatar:
         # Initialize the main window
         self.builder = Gtk.Builder()
         self.builder.add_from_file("/usr/share/semplice-utilities/change-face/avatar.glade")
-        self.window = self.builder.get_object("select_avatar") # The main Glade object
+        self.window = self.builder.get_object("select_avatar") # The main window Glade object
         
         if self.window:
             self.window.connect("destroy", Gtk.main_quit)
@@ -39,7 +39,10 @@ class SelectAvatar:
         
     def apply(self, obj): # Let's do the magic.
         avatar = self.chooser.get_filename()
-        shutil.copy2(avatar, os.path.join(HOME, ".face"))
+        if avatar is None:
+            os.remove(os.path.join(HOME, ".face")) # Do you want no avatar?
+        else:
+            shutil.copy2(avatar, os.path.join(HOME, ".face"))
         sys.exit(0)
         
     def close(self, obj): # Guess what? It closes the app.
