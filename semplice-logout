@@ -117,10 +117,16 @@ class core:
 		os.system("openbox --exit")
 	
 	def do_suspend(self, one=False, two=False):
+		# First, lock the screen
+		self.do_lock(write=False)
+		# Then suspend
 		self.write_action_to_file("suspend")
 		up.Suspend()
 	
 	def do_hibernate(self, one=False, two=False):
+		# First, lock the screen
+		self.do_lock(write=False)
+		# Then hibernate
 		self.write_action_to_file("hibernate")
 		up.Hibernate()
 	
