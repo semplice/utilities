@@ -1,3 +1,9 @@
+semplice-utilities (3.90.0-1) unstable; urgency=low
+
+  * Initial upload to current.
+
+ -- Eugenio Paolantonio (g7) <me@medesimo.eu>  Sat, 16 Feb 2013 18:33:11 +0100
+
 semplice-utilities (2.90.0-1) pulse; urgency=low
 
   * semplice-logout: lock on hibernate and suspend.
