@@ -1,0 +1,49 @@
+--- a/smxi
++++ b/smxi
+@@ -49,6 +49,22 @@
+ # if you want to extend this stub to other scripts, smxi/svmi/inxi/sgfxi all use this
+ SCRIPT_EOF='##\*\*EOF\*\*##'
+ 
++## SEMPLICE PATCH: install_gawk() function
++install_gawk() {
++	if [ "`dpkg -l | grep -w gawk | head -1 | awk '{ print $2 }'`" != "gawk" ]; then
++		read -p "To use inxi, you need gawk. Do you want to install it now? [y/n]: " yn
++		if [ "$yn" = "n" ]; then
++			error_handler 7
++		elif [ "$yn" != "y" ]; then
++			error_handler 8 $yn
++		fi
++		apt-get -y install gawk
++		if [ "$?" != "0" ]; then
++			error_handler 7
++		fi
++	fi
++}
++
+ # args: $1 - error number; $2 - extra data
+ error_handler()
+ {
+@@ -66,6 +82,10 @@
+ 			;;
+ 		6)	message="Unknown script requested: $CALLER"
+ 			;;
++		7)	message="No gawk installed, script aborted."
++			;;
++		8)	message="$2 is not a valid response. Use y or n."
++			;;
+ 		*)	message='Unknown error, exiting now.'
+ 			;;
+ 	esac
+@@ -107,6 +127,12 @@
+ 	if [ "$( id -u )" -ne 0 ];then
+ 		error_handler 1
+ 	fi
++	
++	# Check for gawk if we are going to install inxi...
++	if [ "$SCRIPT" = "inxi" ]; then
++		install_gawk
++	fi
++
+ 	# downloading to overwrite existing file, but to temp variable, which we then test
+ 	FILE_DATA_TEMP="$( wget -q -O - $DOWNLOAD_URL$SCRIPT )" || error_handler 2 "$?"
+ 	IS_GOOD=$( grep -si "$SCRIPT_EOF" <<< "$FILE_DATA_TEMP" )

@@ -1,0 +1,337 @@
+semplice-utilities (2.90.0-1) pulse; urgency=low
+
+  * semplice-logout: lock on hibernate and suspend.
+
+ -- Eugenio Paolantonio (g7) <me@medesimo.eu>  Fri, 07 Dec 2012 18:50:41 +0100
+
+semplice-utilities (2.13.4-0) pulse; urgency=low
+
+  * semplice-change-face: added avatar removal option.
+
+ -- Luca Boncore (tuxpenguin) <sidtux@onblu.net>  Tue, 21 Aug 2012 21:25:30 +0200
+
+semplice-utilities (2.13.3-0) pulse; urgency=low
+
+  * Updated setup.py
+
+ -- Luca B. (tuxpenguin) <sidtux@gmail.com>  Sun, 19 Aug 2012 16:12:41 +0200
+
+semplice-utilities (2.13.2-0) pulse; urgency=low
+
+  * Added semplice-change-face.
+
+ -- Luca B. (tuxpenguin) <sidtux@gmail.com>  Sat, 18 Aug 2012 23:22:37 +0200
+
+semplice-utilities (2.13.1-0) pulse; urgency=low
+
+  * Syncronized translations
+  * Check for XChat in semplice-help-irc
+  * debian/:
+    - removed gdm from Recommends
+    - added xchat to Recommends
+    - updated description.
+
+ -- Eugenio Paolantonio (g7) <me@medesimo.eu>  Wed, 08 Aug 2012 17:00:42 +0200
+
+semplice-utilities (2.13.0-2) pulse; urgency=low
+
+  * added semplice-help-irc.
+
+ -- Eugenio Paolantonio (g7) <me@medesimo.eu>  Fri, 29 Jun 2012 16:53:31 +0200
+
+semplice-utilities (2.12.0-1) pulse; urgency=low
+
+  * semplice-logout: ported to lightdm, added switch-to-guest and
+    switch-to(-user) switches, enabled lock screen on live.
+
+ -- Eugenio Paolantonio (g7) <me@medesimo.eu>  Sun, 29 Apr 2012 11:12:36 +0200
+
+semplice-utilities (2.11.1-1) pulse; urgency=low
+
+  * Luca isn't in the secrecy anymore ;)
+
+ -- Eugenio Paolantonio (g7) <me@medesimo.eu>  Wed, 25 Apr 2012 12:23:48 +0200
+
+semplice-utilities (2.11.0-1) pulse; urgency=low
+
+  * mirrorselect: fixed debian mirror discovering.
+  * mirrorselect: added -u switch which skips the execution of update.
+
+ -- Eugenio Paolantonio (g7) <me@medesimo.eu>  Sun, 15 Apr 2012 19:06:28 +0200
+
+semplice-utilities (2.10.4-1) pulse; urgency=low
+
+  * xdg-autostart: BLACKLIST for executables support.
+    Blacklisted notification-daemon and xfce4-notifyd.
+
+ -- Eugenio Paolantonio (g7) <me@medesimo.eu>  Mon, 06 Feb 2012 22:16:20 +0100
+
+semplice-utilities (2.10.3-1) pulse; urgency=low
+
+  * mirrorselect: use only http by default (-f switch to use ftp);
+    adjusted help echos.
+  * debian/control: depend on netselect.
+
+ -- Eugenio Paolantonio (g7) <me@medesimo.eu>  Sat, 28 Jan 2012 20:05:13 +0100
+
+semplice-utilities (2.10.2-2) pulse; urgency=low
+
+  * nitrogen-add-wallpaper: properly symlink spaced paths.
+
+ -- Eugenio Paolantonio (g7) <me@medesimo.eu>  Tue, 24 Jan 2012 22:49:05 +0100
+
+semplice-utilities (2.10.1-1) pulse; urgency=low
+
+  * nitrogen-add-wallpaper: handle paths with spaces.
+
+ -- Eugenio Paolantonio (g7) <me@medesimo.eu>  Tue, 24 Jan 2012 19:18:36 +0100
+
+semplice-utilities (2.10.0-1) pulse; urgency=low
+
+  * Initial pulse release.
+  * mirrorselect: new release 1.0. Supports debian set,
+    deb-srcs, set releases.
+  * semplice.list: updated to work with mirrorselect 1.0.
+  * Updated Maintainer to match my new gpg key.
+
+ -- Eugenio Paolantonio (g7) <me@medesimo.eu>  Thu, 19 Jan 2012 17:05:03 +0100
+
+semplice-utilities (2.0.1-1) emily; urgency=low
+
+  * semplice-logout: properly handle missing icons and missing
+    pcmanfm sockets.
+  * semplice-about: updated.
+
+ -- Eugenio Paolantonio (g7) <me@medesimo.eu>  Sun, 15 Jan 2012 11:43:35 +0100
+
+semplice-utilities (1.13.4-1) emily; urgency=low
+
+  * xdg-autostart: do not start applications already started
+    by openbox-session.
+
+ -- Eugenio Paolantonio (g7) <me@medesimo.eu>  Sat, 08 Oct 2011 15:47:40 +0200
+
+semplice-utilities (1.13.3-1) emily; urgency=low
+
+  * semplice-logout: handle glade translation.
+
+ -- Eugenio Paolantonio (g7) <me@medesimo.eu>  Sat, 17 Sep 2011 16:31:40 +0200
+
+semplice-utilities (1.13.2-1) emily; urgency=low
+
+  * semplice-logout: updated translations.
+
+ -- Eugenio Paolantonio (g7) <me@medesimo.eu>  Sat, 17 Sep 2011 16:14:34 +0200
+
+semplice-utilities (1.13.1-1) emily; urgency=low
+
+  * semplice-logout: fixed quit() function when the user
+    decided to not show the confirmation dialog.
+  * semplice-logout: fixed glade path.
+  * debian/: full native package.
+
+ -- Eugenio Paolantonio (g7) <me@medesimo.eu>  Fri, 16 Sep 2011 17:24:11 +0200
+
+semplice-utilities (1.13.0) emily; urgency=low
+
+  * semplice-logout: do not ignore reply on upower calls
+  * semplice-logout: switched to a .ini configuration file that resiedes
+    in ~/.semplice-logout
+  * semplice-logout: added working "Settings" dialog
+  * semplice-logout: ability to not show confiirmation window.
+
+ -- Eugenio Paolantonio (g7) <me@medesimo.eu>  Thu, 15 Sep 2011 22:50:29 +0200
+
+semplice-utilities (1.12.4) emily; urgency=low
+
+  * debian/control: Architecture: any -> all.
+
+ -- Eugenio (g7) <morarossa@gmail.com>  Mon, 25 Jul 2011 11:46:34 +0200
+
+semplice-utilities (1.12.3) emily; urgency=low
+
+  * Updated Italian translation.
+
+ -- Eugenio (g7) <morarossa@gmail.com>  Mon, 25 Jul 2011 11:37:22 +0200
+
+semplice-utilities (1.12.2) emily; urgency=low
+
+  * Fixed header translation on semplice-logout
+
+ -- Eugenio (g7) <morarossa@gmail.com>  Sun, 17 Jul 2011 00:05:50 +0200
+
+semplice-utilities (1.12.1) emily; urgency=low
+
+  * New upstream release.
+
+ -- Eugenio (g7) <morarossa@gmail.com>  Wed, 13 Jul 2011 15:32:42 +0200
+
+semplice-utilities (1.12.0) emily; urgency=low
+
+  * Switched to distutils;
+  * semplice-about: detect 32/64bit system; added translation support;
+  * semplice-logout, nitrogen-add-wallpapers: added translation support;
+  * debian packaging: switched to dh_python2; using quilt for patches.
+
+ -- Eugenio (g7) <morarossa@gmail.com>  Sun, 10 Jul 2011 20:33:58 +0200
+
+semplice-utilities (1.11.1) emily; urgency=low
+
+  * semplice-logout:
+    - fixed glade path.
+
+ -- Eugenio (g7) <morarossa@gmail.com>  Thu, 09 Jun 2011 16:28:47 +0200
+
+semplice-utilities (1.11.0) emily; urgency=low
+
+  * semplice-logout:
+    - fake translations support;
+    - added "--last" switch to execute last (or locked) action. 
+
+ -- Eugenio (g7) <morarossa@gmail.com>  Wed, 08 Jun 2011 12:59:42 +0200
+
+semplice-utilities (1.10.1) emily; urgency=low
+
+  * semplice-logout:
+    - write selected action to ~/.lastlogoutchoice, to be used by future
+      applications (top secret =D)
+  * semplice-about:
+    - added Luca (sidtux) to the Credits.
+
+ -- Eugenio (g7) <morarossa@gmail.com>  Fri, 06 May 2011 20:28:11 +0200
+
+semplice-utilities (1.10.0) emily; urgency=low
+
+  * First emily release:
+    - Added hybridswitch (to /usr/bin)
+
+ -- Eugenio (g7) <morarossa@gmail.com>  Fri, 15 Apr 2011 20:46:21 +0200
+
+semplice-utilities (0.8.2) unstable; urgency=low
+
+  * semplice-logout: delete pcmanfm socket in logout (if any).
+
+ -- Eugenio (g7) <morarossa@gmail.com>  Mon, 22 Nov 2010 19:09:19 +0100
+
+semplice-utilities (0.8.1) unstable; urgency=low
+
+  * semplice-logout: do not lock if /etc/semplice-live-mode exists (no error dialog)
+
+ -- Eugenio (g7) <morarossa@gmail.com>  Thu, 21 Oct 2010 19:26:56 +0200
+
+semplice-utilities (0.8-rocks1) unstable; urgency=low
+
+  * New python-based semplice-logout script that uses consolekit and upower.
+
+ -- Eugenio (g7) <morarossa@gmail.com>  Thu, 21 Oct 2010 16:03:29 +0200
+
+semplice-utilities (0.7.2-rocks1) UNRELEASED; urgency=low
+
+  * Updated firmwaredownloader to use system-nonfree instead of semplice-desktop-nonfree
+
+ -- Eugenio (g7) <morarossa@gmail.com>  Sat, 14 Aug 2010 17:35:35 +0200
+
+semplice-utilities (0.7.1-rocks1) unstable; urgency=low
+
+  * New upstream release (Updated semplice-about)
+  * Updated Semplice Team Copyright in debian/copyright. 
+
+ -- Eugenio (g7) <morarossa@gmail.com>  Sat, 14 Aug 2010 16:53:39 +0200
+
+semplice-utilities (0.7-rocks1) unstable; urgency=low
+
+  * New upstream release (added firmwaredownloader, firmwareinstaller)
+  * Updated semplice-utilities.install to match firmware* inclusion.
+
+ -- Eugenio (g7) <morarossa@gmail.com>  Sat, 07 Aug 2010 18:54:23 +0200
+
+semplice-utilities (0.6-rocks1) unstable; urgency=low
+
+  * New upstream release (added mirrorselect, changed semplice-about)
+  * Update semplice-utilities.install to match mirrorselect inclusion.
+
+ -- Eugenio (g7) <morarossa@gmail.com>  Fri, 23 Jul 2010 15:47:26 +0200
+
+semplice-utilities (0.5-rocks3) unstable; urgency=low
+
+  * Fixed patch and renamed it to "install_gawk_when_inxi_is_selected.dpatch".
+
+ -- Eugenio (g7) <morarossa@gmail.com>  Fri, 09 Jul 2010 22:15:29 +0200
+
+semplice-utilities (0.5-rocks2) unstable; urgency=low
+
+  * Added dpatch support in rules;
+  * Added dpatch to Build-Depends in control;
+  * Created auto_install_gawk_in_smxi.dpatch.
+
+ -- Eugenio (g7) <morarossa@gmail.com>  Fri, 09 Jul 2010 21:57:04 +0200
+
+semplice-utilities (0.5-rocks1) unstable; urgency=low
+
+  * New upstream release:
+    - Created nitrogen-add-wallpaper to add single wallpaper
+      to the nitrogen library.
+    - Added "smxi" script from the smxi's svn. It is a stub installer,
+      not smxi itself.
+    - Updated xdg-autostart to version 1.1
+    - Added README.sources which contains informations about smxi script
+      and xdg-autostart.
+  * Changes in debian/:
+    - Switched to Standard-Version 3.9.0;
+    - Switched to a fancy minimal rules;
+    - Added source/format ("3.0 (native)");
+    - Added docs (to install README.sources);
+    - Added semplice-utilities.install to replace old rules;
+    - Updated Description field in control;
+    - Added "wget" in Depends.
+
+ -- Eugenio (g7) <morarossa@gmail.com>  Fri, 09 Jul 2010 19:42:35 +0200
+
+semplice-utilities (0.4.2-rocks1) unstable; urgency=low
+
+  * New upstream release
+
+ -- Eugenio (g7) <morarossa@gmail.com>  Sun, 31 Jan 2010 12:54:13 +0100
+
+semplice-utilities (0.4.1-rocks1) unstable; urgency=low
+
+  * New upstream release
+
+ -- Eugenio (g7) <morarossa@gmail.com>  Fri, 01 Jan 2010 16:18:04 +0100
+
+semplice-utilities (0.4-rocks1) unstable; urgency=low
+
+  * New upstream release
+
+ -- Eugenio (g7) <morarossa@gmail.com>  Thu, 31 Dec 2009 22:32:57 +0100
+
+semplice-utilities (0.3.1-rocks1) unstable; urgency=low
+
+  * New upstream release
+
+ -- Eugenio (g7) <morarossa@gmail.com>  Mon, 30 Nov 2009 21:57:06 +0100
+
+semplice-utilities (0.3-rocks1) unstable; urgency=low
+
+  * New upstream release
+
+ -- Eugenio (g7) <morarossa@gmail.com>  Sat, 28 Nov 2009 13:35:38 +0100
+
+semplice-utilities (0.2-rocks2) unstable; urgency=low
+
+  * Changes in debian/rules:
+    - Added gtkdialog to the dependencies.
+
+ -- Eugenio (g7) <morarossa@gmail.com>  Sat, 28 Nov 2009 13:34:17 +0100
+
+semplice-utilities (0.2-rocks1) unstable; urgency=low
+
+  * New upstream release
+
+ -- Eugenio (g7) <morarossa@gmail.com>  Fri, 27 Nov 2009 18:17:25 +0100
+
+semplice-utilities (0.1-sparta1) unstable; urgency=low
+
+  * Initial release
+
+ -- Eugenio (g7) <morarossa@gmail.com>  Fri, 30 Oct 2009 11:27:04 +0100
