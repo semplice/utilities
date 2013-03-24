@@ -8,6 +8,7 @@
 
 semplice_list="/usr/share/semplice-utilities/mirrorselect/semplice.list"
 semplice_sources="/etc/apt/sources.list.d/semplice.list"
+semplice_changes_sources="/etc/apt/sources.list.d/changes.list"
 
 debian_sources="/etc/apt/sources.list"
 
@@ -17,7 +18,7 @@ SET="semplice"
 SRC_ENABLE=""
 PROTO="http://"
 
-SEMPLICE_DISTRO="pulse"
+SEMPLICE_DISTRO="unstable"
 DEBIAN_DISTRO="unstable"
 
 error() {
@@ -34,8 +35,8 @@ help() {
 	echo "$0 <option> - Checks which mirror is the fastest."
 	echo ""
 	echo "Available arguments:"
-	echo "   -s <set>       - 'debian' or 'semplice' (default: 'semplice')"
-	echo "   -d <distro>    - Distribution to use (default is 'pulse' for semplice, 'unstable' for debian)"
+	echo "   -s <set>       - 'debian', 'semplice' or 'changes' (default: 'semplice')"
+	echo "   -d <distro>    - Distribution to use (default is '$SEMPLICE_DISTRO' for semplice, '$DEBIAN_DISTRO' for debian)"
 	echo "   -o             - Enable sources (disabled by default)"
 	echo "   -f             - Use FTP protocol if available."
 	echo "   -n             - Non-interactive."
@@ -51,7 +52,11 @@ semplice_parse() {
 		error "The mirror list ($semplice_list) doesn't exist. Aborting."
 	fi
 	list="`cat $semplice_list`"
-	sources="$semplice_sources"
+	if [ -z "$is_changes" ]; then
+		sources="$semplice_sources"
+	else
+		sources="$semplice_changes_sources"
+	fi
 }
 
 debian_parse() {
@@ -154,6 +159,7 @@ parseargs() {
 
 parseargs "$@"
 [ -z "$DISTRO" ] && [ "$SET" = "semplice" ] && DISTRO=$SEMPLICE_DISTRO
+[ -z "$DISTRO" ] && [ "$SET" = "changes" ] && DISTRO=changes-$SEMPLICE_DISTRO
 [ -z "$DISTRO" ] && [ "$SET" = "debian" ] && DISTRO=$DEBIAN_DISTRO
 
 if [ "$USER" != "root" ]; then
@@ -165,6 +171,9 @@ if [ "$SET" = "semplice" ]; then
 	semplice_parse
 elif [ "$SET" = "debian" ]; then
 	debian_parse
+elif [ "$SET" = "changes" ]; then
+	is_changes="y"
+	semplice_parse
 else
 	error "Set $SET not supported. Aborting."
 fi
