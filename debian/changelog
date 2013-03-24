@@ -1,3 +1,11 @@
+semplice-utilities (3.91.0-1) unstable; urgency=low
+
+  * Added Giuseppe to Semplice's credits.
+  * mirrorselect: some changes.
+  * Added a script to check the semplice mirrors from a master file.
+
+ -- Eugenio Paolantonio (g7) <me@medesimo.eu>  Sun, 24 Mar 2013 17:37:36 +0100
+
 semplice-utilities (3.90.0-1) unstable; urgency=low
 
   * Initial upload to current.
