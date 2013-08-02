@@ -68,9 +68,7 @@ class Info:
 		self.about.set_authors([
 			"Eugenio \"g7\" Paolantonio <me@medesimo.eu>",
 			"Luca Boncore <sidtux@gmail.com>",
-			"",
-			"Desktop effects configuration tool by:",
-			"Giuseppe Corti <gsc.rul3z@gmail.com>",
+			"Giuseppe Corti <giuseppe@infiniteloop.pro>",
 			])
 		
 		self.about.run()
