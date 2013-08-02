@@ -1,3 +1,10 @@
+semplice-utilities (4.0.0-1) unstable; urgency=low
+
+  * Removed ufpr from the mirror list.
+  * debian/control: depend on python-glade2.
+
+ -- Eugenio Paolantonio (g7) <me@medesimo.eu>  Fri, 02 Aug 2013 16:37:39 +0200
+
 semplice-utilities (3.91.0-1) unstable; urgency=low
 
   * Added Giuseppe to Semplice's credits.
