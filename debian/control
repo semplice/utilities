@@ -3,7 +3,7 @@ Section: utils
 Priority: optional
 Maintainer: Eugenio Paolantonio (g7) <me@medesimo.eu>
 Build-Depends: debhelper (>= 7), python
-Standards-Version: 3.9.2
+Standards-Version: 3.9.4
 Homepage: http://launchpad.net/semplice
 X-Python-Version: >=2.6
 
