@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-08-08 16:59+0200\n"
+"POT-Creation-Date: 2013-08-17 17:45+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,31 +17,35 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: semplice-about:36
+#: semplice-about:43
 msgid ""
 "All work done by the Semplice Project, if not declared, is released under "
 "the GNU GPL license, see below."
 msgstr ""
 
-#: semplice-about:51
+#: semplice-about:58
 msgid "For other applications, see /usr/share/doc/<packagename>/copyright."
 msgstr ""
 
-#: semplice-about:52
+#: semplice-about:59
 msgid "The most common licenses are available in /usr/share/common-licenses."
 msgstr ""
 
-#: semplice-about:64
+#: semplice-about:75
 msgid "A simple, lightweight, fast and Debian-based GNU/Linux distribution."
 msgstr ""
 
-#: semplice-logout:30 semplice-logout:293 semplice-logout:420
-#: semplice-logout:434 logout.glade.h:2
+#: semplice-about:80
+msgid "The awesome"
+msgstr ""
+
+#: semplice-logout:30 semplice-logout:299 semplice-logout:426
+#: semplice-logout:440 logout.glade.h:2
 msgid "Lock Screen"
 msgstr ""
 
-#: semplice-logout:30 semplice-logout:287 semplice-logout:305
-#: semplice-logout:401 logout.glade.h:3
+#: semplice-logout:30 semplice-logout:293 semplice-logout:311
+#: semplice-logout:407 logout.glade.h:3
 msgid "Logout"
 msgstr ""
 
@@ -49,23 +53,23 @@ msgstr ""
 msgid "Switch User"
 msgstr ""
 
-#: semplice-logout:30 semplice-logout:290 semplice-logout:309
-#: semplice-logout:403 logout.glade.h:5
+#: semplice-logout:30 semplice-logout:296 semplice-logout:315
+#: semplice-logout:409 logout.glade.h:5
 msgid "Suspend"
 msgstr ""
 
-#: semplice-logout:30 semplice-logout:290 semplice-logout:312
-#: semplice-logout:405 logout.glade.h:6
+#: semplice-logout:30 semplice-logout:296 semplice-logout:318
+#: semplice-logout:411 logout.glade.h:6
 msgid "Hibernate"
 msgstr ""
 
-#: semplice-logout:30 semplice-logout:287 semplice-logout:302
-#: semplice-logout:407 logout.glade.h:7
+#: semplice-logout:30 semplice-logout:293 semplice-logout:308
+#: semplice-logout:413 logout.glade.h:7
 msgid "Shutdown"
 msgstr ""
 
-#: semplice-logout:30 semplice-logout:287 semplice-logout:299
-#: semplice-logout:409 logout.glade.h:8
+#: semplice-logout:30 semplice-logout:293 semplice-logout:305
+#: semplice-logout:415 logout.glade.h:8
 msgid "Reboot"
 msgstr ""
 
@@ -126,33 +130,33 @@ msgstr ""
 msgid " --settings\t\t- Configure semplice-logout behaviour."
 msgstr ""
 
-#: semplice-logout:206 semplice-logout:341
+#: semplice-logout:212 semplice-logout:347
 #, python-format
 msgid ""
 "%s doesn't exists. Can't open GUI - use the command line frontend instead."
 msgstr ""
 
-#: semplice-logout:282
+#: semplice-logout:288
 msgid "<i>This will <b>close</b> all running applications.</i>"
 msgstr ""
 
-#: semplice-logout:283
+#: semplice-logout:289
 msgid "<i>On resume, all running applications will be <b>restored</b>.</i>"
 msgstr ""
 
-#: semplice-logout:284
+#: semplice-logout:290
 msgid "<i>If prompted for a password, insert <b>live</b>.</i>"
 msgstr ""
 
-#: semplice-logout:285
+#: semplice-logout:291
 msgid " your system"
 msgstr ""
 
-#: semplice-logout:287 semplice-logout:299 semplice-logout:411
+#: semplice-logout:293 semplice-logout:305 semplice-logout:417
 msgid "Reboot (Select no to launch Live System)"
 msgstr ""
 
-#: semplice-logout:332
+#: semplice-logout:338
 #, python-format
 msgid "<big><b>Do you <u>really</u> want to <i>%s</i>?</b></big>"
 msgstr ""
