@@ -8,9 +8,11 @@
 #
 
 import sys, os
-import pygtk
-pygtk.require("2.0")
-import gtk, gtk.gdk
+#import pyGtk
+#pyGtk.require("2.0")
+#import Gtk, Gtk.gdk
+
+from gi.repository import Gtk, GdkPixbuf
 
 import t9n.library
 _ = t9n.library.translation_init("semplice-utilities")
@@ -20,14 +22,19 @@ if os.path.exists("/etc/semplice-live-mode"):
 else:
 	LIVE = False
 
+if os.path.exists("/usr/share/semplice-utilities/semplicelogo.png"):
+	logof = "/usr/share/semplice-utilities/semplicelogo.png"
+else:
+	logof = "./semplicelogo.png"
+
 class Info:
-	def __init__(self):		
-		self.about = gtk.AboutDialog()
+	def __init__(self):	
+		self.about = Gtk.AboutDialog()
 		
-		theme = gtk.icon_theme_get_default()
-		self.about.set_icon(theme.load_icon("help-about", 24, 0))
+		logo = GdkPixbuf.Pixbuf.new_from_file(logof)
+		self.about.set_default_icon_name("help-about")
 		
-		self.about.connect('destroy', gtk.main_quit)
+		self.about.connect('destroy', Gtk.main_quit)
 		
 		self.get_build()
 		self.get_version()
@@ -35,18 +42,18 @@ class Info:
 		self.license = []
 		self.license.append(_("All work done by the Semplice Project, if not declared, is released under the GNU GPL license, see below."))
 		self.license.append("""
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
 
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
 
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """)
 		self.license.append(_("For other applications, see /usr/share/doc/<packagename>/copyright."))
 		self.license.append(_("The most common licenses are available in /usr/share/common-licenses."))
@@ -54,21 +61,26 @@ class Info:
 		self.license = "\n".join(self.license)
 				
 		# Details
+		self.about.set_logo(logo)
 		if LIVE == True:
-			self.about.set_name("Semplice Live") # We're into the Live System
+			typ = "Live" # We're into the Live System
 		else:
-			self.about.set_name("Semplice Desktop") # We're into the Semplice System (installed system)
+			typ = "Desktop" # We're into the Semplice System (installed system)
 
-		self.about.set_version("%s (%s; %s)" % (self.version, self.arch, self.build)) # Version
-		self.about.set_copyright("Copyright (C) 2009-12 Semplice Project") # Copyright
+		self.about.set_program_name("Semplice %s" % typ)
+
+		self.about.set_version("%s (%s)" % (self.version, self.arch)) # Version
+		#self.about.set_version(self.arch)
+		self.about.set_copyright("Copyright (C) 2009-13 Semplice Project") # Copyright
 		self.about.set_comments(_("A simple, lightweight, fast and Debian-based GNU/Linux distribution."))
 		self.about.set_license(self.license)
+		self.about.set_wrap_license(True)
 	   	self.about.set_website("http://semplice-linux.org")
 		self.about.set_website_label("semplice-linux.org")
-		self.about.set_authors([
+		self.about.add_credit_section(_("The awesome"), [
 			"Eugenio \"g7\" Paolantonio <me@medesimo.eu>",
-			"Luca Boncore <sidtux@gmail.com>",
-			"Giuseppe Corti <giuseppe@infiniteloop.pro>",
+			"Luca Boncore <sidtux@onblu.net>",
+			"Giuseppe \"GsC_RuL3Z\" Corti <giuseppe@infiniteloop.pro>",
 			])
 		
 		self.about.run()
@@ -78,16 +90,11 @@ class Info:
 		if os.path.exists("/etc/semplice-build"):
 			# 32-bit
 			self.arch = "i386"
-			with open("/etc/semplice-build") as f:
-				self.build = f.readline().replace('\n','')
 		elif os.path.exists("/etc/semplice64-build"):
 			# 64-bit
 			self.arch = "amd64"
-			with open("/etc/semplice64-build") as f:
-				self.build = f.readline().replace('\n','')
 		else:
 			self.arch = "unknown"
-			self.build = "build not detected"
 	
 	def get_version(self):
 		# FIXME: Since Beta 1, semplice_version is in system-base which is ALWAYS installed.
@@ -99,5 +106,8 @@ class Info:
 			self.version = "rolling"
 	
 if __name__ == "__main__":
- dialog = Info()
- gtk.main()
+	import signal
+	signal.signal(signal.SIGINT, signal.SIG_DFL)
+
+	dialog = Info()
+	Gtk.main()
