@@ -1,3 +1,10 @@
+semplice-utilities (5.0.0-1) unstable; urgency=low
+
+  * semplice-about: ported to GTK+3, dropped build, added logo.
+  * debian/control: standards-version: bumped to 3.9.4.
+
+ -- Eugenio Paolantonio (g7) <me@medesimo.eu>  Sat, 17 Aug 2013 17:53:45 +0200
+
 semplice-utilities (4.0.0-1) unstable; urgency=low
 
   * Removed ufpr from the mirror list.
