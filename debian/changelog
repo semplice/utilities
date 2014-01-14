@@ -1,3 +1,12 @@
+semplice-utilities (5.90.0-1) devel; urgency=low
+
+  * Added the semplice-upgrade script. Also do not ship hybridswitch anymore.
+  * debian/control: Pre-Depend on meta-base to make sure that the heaven upgrade works.
+  * debian/postinst: added.
+  * Target devel for now.
+
+ -- Eugenio Paolantonio (g7) <me@medesimo.eu>  Tue, 14 Jan 2014 16:36:56 +0100
+
 semplice-utilities (5.0.1-1) unstable; urgency=low
 
   * semplice-list: removed switch and surfnet.
