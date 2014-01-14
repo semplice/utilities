@@ -1,3 +1,10 @@
+semplice-utilities (5.90.1-1) devel; urgency=low
+
+  * semplice-upgrade: regenerate grub config, too.
+  * debian/postinst: fixed.
+
+ -- Eugenio Paolantonio (g7) <me@medesimo.eu>  Tue, 14 Jan 2014 17:39:24 +0100
+
 semplice-utilities (5.90.0-1) devel; urgency=low
 
   * Added the semplice-upgrade script. Also do not ship hybridswitch anymore.
