@@ -5,7 +5,8 @@ set -e
 
 configure() {
 	# Execute /usr/bin/semplice-upgrade...
-	[ "$2" ] && /usr/bin/semplice-upgrade
+	[ "$1" ] && /usr/bin/semplice-upgrade
+	return 0
 }
 
 case "$1" in
