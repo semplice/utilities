@@ -6,12 +6,12 @@
 from distutils.core import setup
 
 setup(name='semplice-utilities',
-      version='5.0.0',
+      version='5.90.0',
       description='Semplice Linux Utilities',
       author='Eugenio Paolantonio and the Semplice Team',
       author_email='me@medesimo.eu',
       url='http://launchpad.net/semplice',
-      scripts=['semplice-about', 'semplice-change-face', 'semplice-logout', 'xdg-autostart',],
-      data_files=[("/usr/bin", ["semplice-help-irc", "nitrogen-add-wallpaper", "mirrorselect", "smxi", "hybridswitch"]), ("/usr/share/semplice-utilities", ["semplicelogo.png"]), ("/usr/share/semplice-utilities/mirrorselect", ["semplice.list"]), ("/usr/share/semplice-utilities/logout", ["logout.glade"]), ("/usr/share/semplice-utilities/change-face", ["avatar.glade"])],
+      scripts=['semplice-about', 'semplice-change-face', 'semplice-logout', 'semplice-upgrade', 'xdg-autostart',],
+      data_files=[("/usr/bin", ["semplice-help-irc", "nitrogen-add-wallpaper", "mirrorselect", "smxi"]), ("/usr/share/semplice-utilities", ["semplicelogo.png"]), ("/usr/share/semplice-utilities/mirrorselect", ["semplice.list"]), ("/usr/share/semplice-utilities/logout", ["logout.glade"]), ("/usr/share/semplice-utilities/change-face", ["avatar.glade"])],
       requires=['os', 'sys', 'time', 'glob', 'pygtk', 'gtk', 'gtk.gdk', 'dbus', 'threading', 'xdg', 'xdg.DesktopEntry', 'xdg.Exceptions'],
      )
