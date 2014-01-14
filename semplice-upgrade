@@ -1,0 +1,116 @@
+#!/usr/bin/python
+# -*- coding: utf-8 -*-
+#
+# semplice-upgrade - upgrade helper for semplice
+# Copyright (C) 2013  Eugenio "g7" Paolantonio
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#
+
+import os, sys, subprocess, shutil
+
+ZRAM_LIMIT = 2048
+
+class HeavenUpgrade:
+	
+	def do(self):
+		
+		self.enable_systemd()
+		self.configure_zram()
+	
+	def enable_systemd(self):
+		""" Enables systemd. """
+				
+		if not os.path.exists("/lib/systemd/systemd") or os.path.exists("/etc/semplice-upgrade/nosystemd") or os.path.exists("/etc/default/grub.sempliceupgrade"):
+			return
+
+		info("Enabling systemd...")
+		
+		# Backup /etc/default/grub
+		shutil.copy2("/etc/default/grub", "/etc/default/grub.sempliceupgrade")
+		
+		# Enable systemd
+		with open("/etc/default/grub", "a") as f:
+			f.write("""
+### ADDED BY THE SEMPLICE 6 UPGRADE PROCESS ###
+# Enable systemd
+GRUB_CMDLINE_LINUX="${GRUB_CMDLINE_LINUX} init=/lib/systemd/systemd"
+### END ADDED ###
+""")
+	
+	def configure_zram(self):
+		""" Configures zram. """
+		
+		if not os.path.exists("/usr/bin/zramcfg") or os.path.exists("/etc/semplice-upgrade/nozram"):
+			return
+		
+		# Get TotalMem size
+		with open("/proc/meminfo") as mem:
+			MemTotal = int(mem.readline().rstrip("\n").split(" ")[-2])/1024
+		
+		if MemTotal <= ZRAM_LIMIT:
+			info("Configuring compressed swap...")
+			subprocess.call("/usr/bin/zramcfg")
+
+
+releases = {
+	"heaven":600.0,
+}
+
+rules = {
+	"heaven":HeavenUpgrade,
+}	
+
+def info(message):
+	""" Displays an information message. """
+	
+	print("I: %s" % message)
+
+def warning(warn):
+	""" Displays a warning message. """
+	
+	print("W: %s" % warn)
+
+if os.path.exists("/etc/semplice64-build"):
+	FILE = "/etc/semplice64-build"
+elif os.path.exists("/etc/semplice-build"):
+	FILE = "/etc/semplice-build"
+else:
+	raise Exception("semplice-build missing.")
+
+with open(FILE) as f:
+	CURRENT = float(f.readline().strip())
+
+CODENAME = subprocess.check_output(["lsb_release", "-s", "-c"]).strip()
+
+# Root check
+if os.getuid() > 0:
+	raise Exception("You need to be root to use this application.")
+
+# Should upgrade?
+if not CODENAME in releases:
+	raise Exception("There are no rules to upgrade to %s. Please ensure that you have your system updated." % CODENAME)
+	
+if CURRENT < releases[CODENAME]:
+	# Yes!
+	info("Upgrading to %s..." % CODENAME)
+	
+	rl = rules[CODENAME]()
+	rl.do()
+	
+	# Write the new build number
+	with open(FILE, "w") as f:
+		f.write("%s\n" % releases[CODENAME])
+else:
+	info("Nothing to do.")
