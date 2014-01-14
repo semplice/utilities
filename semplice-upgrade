@@ -48,6 +48,9 @@ class HeavenUpgrade:
 GRUB_CMDLINE_LINUX="${GRUB_CMDLINE_LINUX} init=/lib/systemd/systemd"
 ### END ADDED ###
 """)
+		
+		# Regenerate grub config
+		subprocess.call("update-grub")
 	
 	def configure_zram(self):
 		""" Configures zram. """
