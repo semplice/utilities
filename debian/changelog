@@ -1,3 +1,10 @@
+semplice-utilities (6.0.0-1) unstable; urgency=low
+
+  * Added the mirror in Frankfurt (DE). Thank you vinzv!
+  * 6.0.0.
+
+ -- Eugenio Paolantonio (g7) <me@medesimo.eu>  Thu, 23 Jan 2014 17:24:53 +0100
+
 semplice-utilities (5.90.1-1) devel; urgency=low
 
   * semplice-upgrade: regenerate grub config, too.
