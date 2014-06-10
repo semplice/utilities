@@ -34,11 +34,8 @@ snoitcs = {"last":0, "lock":1, "logout":2, "switch":3, "suspend":4, "hibernate":
 # Open the system bus.
 bus = dbus.SystemBus()
 
-# ConsoleKit (Shutdown; Restart)
-ck = dbus.Interface(bus.get_object("org.freedesktop.ConsoleKit", "/org/freedesktop/ConsoleKit/Manager"), "org.freedesktop.ConsoleKit.Manager")
-
-# UPower (Suspend, Hibernate)
-up = dbus.Interface(bus.get_object("org.freedesktop.UPower","/org/freedesktop/UPower"), "org.freedesktop.UPower")
+# Connect to logind
+ld = dbus.Interface(bus.get_object("org.freedesktop.login1", "/org/freedesktop/login1"), "org.freedesktop.login1.Manager")
 
 def error(error,exit=None):
 	print >>sys.stderr, "\aE: " + error
@@ -104,11 +101,11 @@ class core:
 	
 	def do_reboot(self, one=False, two=False):
 		self.write_action_to_file("reboot")
-		ck.Restart()
+		ld.Reboot(True)
 	
 	def do_shutdown(self, one=False, two=False):
 		self.write_action_to_file("shutdown")
-		ck.Stop()
+		ld.PowerOff(True)
 	
 	def do_logout(self, one=False, two=False):
 		# Delete pcmanfm socket, if the user will login again will not be able to open pcmanfm
@@ -121,14 +118,14 @@ class core:
 		self.do_lock(write=False)
 		# Then suspend
 		self.write_action_to_file("suspend")
-		up.Suspend()
+		ld.Suspend(True)
 	
 	def do_hibernate(self, one=False, two=False):
 		# First, lock the screen
 		self.do_lock(write=False)
 		# Then hibernate
 		self.write_action_to_file("hibernate")
-		up.Hibernate()
+		ld.Hibernate(True)
 	
 	def do_lock(self, one=False, two=False, write=True):
 		if write: self.write_action_to_file("lock")
