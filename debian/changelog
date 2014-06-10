@@ -1,3 +1,12 @@
+semplice-utilities (6.1.0-1) unstable; urgency=medium
+
+  * semplice-logout: switch to logind.
+  * debian/control: removed dependency on consolekit and upower,
+                    added dependency on systemd (or systemd-shim)
+                    and python-t9n.
+
+ -- Eugenio Paolantonio (g7) <me@medesimo.eu>  Tue, 10 Jun 2014 11:36:01 +0200
+
 semplice-utilities (6.0.0-1) unstable; urgency=low
 
   * Added the mirror in Frankfurt (DE). Thank you vinzv!
