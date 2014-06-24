@@ -1,0 +1,26 @@
+Source: semplice-utilities
+Section: utils
+Priority: optional
+Maintainer: Eugenio Paolantonio (g7) <me@medesimo.eu>
+Build-Depends: debhelper (>= 7), python
+Standards-Version: 3.9.4
+Homepage: http://launchpad.net/semplice
+X-Python-Version: >=2.6
+
+Package: semplice-utilities
+Architecture: all
+Pre-Depends: meta-base (>= 5.80.0)
+Depends: ${misc:Depends}, ${python:Depends}, bash, mawk | gawk | original-awk, findutils, grep, wget, coreutils, openbox, python-gtk2, python-xdg, python-t9n, python-dbus, netselect, python-gi, gir1.2-gtk-3.0, python-glade2, systemd | systemd-shim
+Recommends: xchat
+Description: Semplice Linux Utilities
+ This package contains the Semplice Linux utilities.
+ Actually, it contains:
+  * xdg-autostart: script to launch .desktop files in
+    /etc/xdg/autostart and <userhome>/.config/autostart
+  * semplice-logout: a simple logout/shutdown/etc GTK+
+    dialog.
+  * semplice-about: an about dialog for Semplice.
+  * semplice-help-irc: Instant-on XChat for getting help on
+    Semplice's help channels. 
+  * semplice-change-face: Simple utility to change your
+    avatar.
