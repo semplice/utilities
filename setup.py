@@ -6,7 +6,7 @@
 from distutils.core import setup
 
 setup(name='semplice-utilities',
-      version='6.1.0',
+      version='6.20.0',
       description='Semplice Linux Utilities',
       author='Eugenio Paolantonio and the Semplice Team',
       author_email='me@medesimo.eu',
