@@ -12,6 +12,6 @@ setup(name='semplice-utilities',
       author_email='me@medesimo.eu',
       url='http://launchpad.net/semplice',
       scripts=['semplice-about', 'semplice-change-face', 'semplice-logout', 'semplice-upgrade', 'xdg-autostart',],
-      data_files=[("/usr/bin", ["semplice-help-irc", "nitrogen-add-wallpaper", "mirrorselect", "smxi"]), ("/usr/share/semplice-utilities", ["semplicelogo.png"]), ("/usr/share/semplice-utilities/mirrorselect", ["semplice.list"]), ("/usr/share/semplice-utilities/logout", ["logout.glade"]), ("/usr/share/semplice-utilities/change-face", ["avatar.glade"])],
+      data_files=[("/usr/bin", ["semplice-help-irc", "mirrorselect"]), ("/usr/share/semplice-utilities", ["semplicelogo.png"]), ("/usr/share/semplice-utilities/mirrorselect", ["semplice.list"]), ("/usr/share/semplice-utilities/logout", ["logout.glade"]), ("/usr/share/semplice-utilities/change-face", ["avatar.glade"])],
       requires=['os', 'sys', 'time', 'glob', 'pygtk', 'gtk', 'gtk.gdk', 'dbus', 'threading', 'xdg', 'xdg.DesktopEntry', 'xdg.Exceptions'],
      )
