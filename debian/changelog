@@ -1,3 +1,12 @@
+semplice-utilities (6.20.0) devel; urgency=medium
+
+  * This is devel, baby!
+  * We do not ship smxi anymore, so let's go native.
+  * Removed nitrogen-add-wallpaper.
+  * debian/control: depend on inxi.
+
+ -- Eugenio Paolantonio (g7) <me@medesimo.eu>  Tue, 24 Jun 2014 23:16:21 +0200
+
 semplice-utilities (6.1.0-1) unstable; urgency=medium
 
   * semplice-logout: switch to logind.
