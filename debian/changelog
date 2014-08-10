@@ -1,3 +1,11 @@
+semplice-utilities (6.21.0) devel; urgency=medium
+
+  * open-mixer: added.
+  * debian/control: added Conflicts (and Replaces) against semplice-utilities
+    (<< 6.20.0)
+
+ -- Eugenio Paolantonio (g7) <me@medesimo.eu>  Sun, 10 Aug 2014 19:55:09 +0200
+
 semplice-utilities (6.20.0) devel; urgency=medium
 
   * This is devel, baby!
