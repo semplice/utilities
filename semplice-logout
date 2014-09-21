@@ -394,7 +394,6 @@ show = get_n_parse(config, "Logout", "show_dialog")
 
 lock = get_n_parse(config, "Last", "lock")
 
-gtk.gdk.threads_init()
 c = core()
 
 if len(sys.argv) == 1 or sys.argv[1] == "--help":
