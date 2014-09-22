@@ -8,10 +8,9 @@
 
 import os, sys, time
 import glob
-import pygtk, gtk, gtk.gdk, gtk.glade
+import gobject, pygtk, gtk, gtk.gdk, gtk.glade
 pygtk.require("2.0")
 import dbus
-import threading
 
 import ConfigParser as cfg
 
@@ -244,33 +243,8 @@ class SettingsGUI:
 		self.settingsw.show()
 
 class GUI:	
-	class timer(threading.Thread):
-		def __init__(self, text, window, do):
-			self.num = 60 # The seconds after automatically shutdown, reboot, etc.
-			
-			self.text = text
-			self.stopped = False
-			self.do = do
-			self.window = window
-			threading.Thread.__init__(self)
-		
-		def run(self):
-			while self.num != 0:
-				if self.stopped:
-					return None
-				self.window.format_secondary_markup(self.text + " (-<b>%d</b>)" % self.num)
-				#print "-%d" % self.num
-				self.num -= 1
-				time.sleep(1)
-			self.do()
-		
-		def stop(self):
-			self.stopped = True
-	
 	def quit(self, one=False, nogtk=False):
 		self.singlew.hide()
-		self.tim.stop()
-		gtk.gdk.threads_leave()
 		
 		if not nogtk:
 			gtk.main_quit()
@@ -278,6 +252,25 @@ class GUI:
 	def act_helper(self, one=False):
 		self.act()
 		self.quit()
+	
+	def on_timeout_elapsed(self, text):
+		"""
+		Fired when the timeout elapsed.
+		Note that here the timeout is for only 1 second, we'll count
+		the elapsed seconds ourselves and when reaching 1 minute, stop 
+		everything and trigger the action.
+		"""
+		
+		self.second_count += 1
+		
+		if self.second_count < 60:
+			self.singlew.format_secondary_markup(text + " (-<b>%d</b>)" % (60-self.second_count))
+			
+			return True
+		else:
+			# Do!
+			self.act_helper()
+			return False
 	
 	def connect_single(self):
 		""" This will set all things needed by action. """
@@ -335,15 +328,17 @@ class GUI:
 		self.singlew.set_markup(_("<big><b>Do you <u>really</u> want to <i>%s</i>?</b></big>") % action.lower())
 		#self.singlew.format_secondary_markup(text)
 		
-		# Start timer class.
-		self.tim = self.timer(text, self.singlew, self.act_helper)
-		self.tim.start()
+		# Start timer
+		self.singlew.format_secondary_markup(text + " (-<b>%d</b>)" % 60)
+		gobject.timeout_add_seconds(1, self.on_timeout_elapsed, text)
 		
 	def __init__(self, sclass):
 		if not os.path.isfile(glade):
 			error(_("%s doesn't exists. Can't open GUI - use the command line frontend instead." % (glade)),1)
 		
 		self.sclass = sclass
+		
+		self.second_count = 0
 		
 		builder = gtk.Builder()
 		builder.add_from_file(glade)
