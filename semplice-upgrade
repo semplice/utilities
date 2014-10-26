@@ -26,31 +26,7 @@ class HeavenUpgrade:
 	
 	def do(self):
 		
-		self.enable_systemd()
 		self.configure_zram()
-	
-	def enable_systemd(self):
-		""" Enables systemd. """
-				
-		if not os.path.exists("/lib/systemd/systemd") or os.path.exists("/etc/semplice-upgrade/nosystemd") or os.path.exists("/etc/default/grub.sempliceupgrade"):
-			return
-
-		info("Enabling systemd...")
-		
-		# Backup /etc/default/grub
-		shutil.copy2("/etc/default/grub", "/etc/default/grub.sempliceupgrade")
-		
-		# Enable systemd
-		with open("/etc/default/grub", "a") as f:
-			f.write("""
-### ADDED BY THE SEMPLICE 6 UPGRADE PROCESS ###
-# Enable systemd
-GRUB_CMDLINE_LINUX="${GRUB_CMDLINE_LINUX} init=/lib/systemd/systemd"
-### END ADDED ###
-""")
-		
-		# Regenerate grub config
-		subprocess.call("update-grub")
 	
 	def configure_zram(self):
 		""" Configures zram. """
