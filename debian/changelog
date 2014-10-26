@@ -1,3 +1,14 @@
+semplice-utilities (6.21.2) devel; urgency=medium
+
+  * semplice-logout: remove the threads_init() call.
+  * semplice-logout: use glib timers to handle the action countdown.
+  * semplice-upgrade: added rules for numb and made the upgrade process more robust.
+  * semplice-upgrade: HeavenUpgrade: remove the systemd bits, as now systemd is
+    installed by default as /sbin/init.
+  * mirrorselect: removed the unreliable kent mirror from the list.
+
+ -- Eugenio Paolantonio (g7) <me@medesimo.eu>  Sun, 26 Oct 2014 18:53:17 +0100
+
 semplice-utilities (6.21.1) devel; urgency=medium
 
   * Uh, forgot to save the changes in the control file...
