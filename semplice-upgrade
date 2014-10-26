@@ -66,13 +66,22 @@ GRUB_CMDLINE_LINUX="${GRUB_CMDLINE_LINUX} init=/lib/systemd/systemd"
 			info("Configuring compressed swap...")
 			subprocess.call("/usr/bin/zramcfg")
 
+class NumbUpgrade:
+	
+	def do(self):
+		
+		pass
+
+order = ("heaven", "numb")
 
 releases = {
 	"heaven":600.0,
+	"numb":650.0
 }
 
 rules = {
 	"heaven":HeavenUpgrade,
+	"numb":NumbUpgrade,
 }	
 
 def info(message):
@@ -103,17 +112,20 @@ if os.getuid() > 0:
 
 # Should upgrade?
 if not CODENAME in releases:
-	raise Exception("There are no rules to upgrade to %s. Please ensure that you have your system updated." % CODENAME)
-	
-if CURRENT < releases[CODENAME]:
-	# Yes!
-	info("Upgrading to %s..." % CODENAME)
-	
-	rl = rules[CODENAME]()
-	rl.do()
-	
-	# Write the new build number
-	with open(FILE, "w") as f:
-		f.write("%s\n" % releases[CODENAME])
-else:
-	info("Nothing to do.")
+	print("There are no rules to upgrade to %s. Please ensure that you have your system updated." % CODENAME)
+	sys.exit(0)
+
+for release in order:
+	if CURRENT < releases[release]:
+		# Yes!
+		info("Upgrading to %s..." % release)
+		
+		rl = rules[release]()
+		rl.do()
+		
+		# Write the new build number
+		with open(FILE, "w") as f:
+			f.write("%s\n" % releases[release])
+		CURRENT = releases[release]
+	else:
+		info("Nothing to do for release %s." % release)
