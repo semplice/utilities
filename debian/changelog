@@ -1,3 +1,10 @@
+semplice-utilities (7.0.0) unstable; urgency=medium
+
+  * We aren't in devel anymore.
+  * semplice-upgrade: raise numb build number to 700.0
+
+ -- Eugenio Paolantonio (g7) <me@medesimo.eu>  Fri, 03 Apr 2015 19:33:47 +0200
+
 semplice-utilities (6.21.2) devel; urgency=medium
 
   * semplice-logout: remove the threads_init() call.
