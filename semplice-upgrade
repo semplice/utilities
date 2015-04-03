@@ -52,7 +52,7 @@ order = ("heaven", "numb")
 
 releases = {
 	"heaven":600.0,
-	"numb":650.0
+	"numb":700.0
 }
 
 rules = {
