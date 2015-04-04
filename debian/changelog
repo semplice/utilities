@@ -1,3 +1,9 @@
+semplice-utilities (7.0.1) unstable; urgency=medium
+
+  * debian/control: properly declare Conflicts and Replaces against semplice-utilities (<< 6.20.0), because of the inxi transition.
+
+ -- Eugenio Paolantonio (g7) <me@medesimo.eu>  Sat, 04 Apr 2015 10:53:35 +0200
+
 semplice-utilities (7.0.0) unstable; urgency=medium
 
   * We aren't in devel anymore.
