@@ -1,3 +1,9 @@
+semplice-utilities (7.0.3) unstable; urgency=medium
+
+  * debian/control: remove Replaces field.
+
+ -- Eugenio Paolantonio (g7) <me@medesimo.eu>  Sun, 05 Apr 2015 19:55:03 +0200
+
 semplice-utilities (7.0.2) unstable; urgency=medium
 
   * debian/control: use Breaks instead of Conflicts.
