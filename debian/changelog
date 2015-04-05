@@ -1,3 +1,9 @@
+semplice-utilities (7.0.2) unstable; urgency=medium
+
+  * debian/control: use Breaks instead of Conflicts.
+
+ -- Eugenio Paolantonio (g7) <me@medesimo.eu>  Sun, 05 Apr 2015 18:53:02 +0200
+
 semplice-utilities (7.0.1) unstable; urgency=medium
 
   * debian/control: properly declare Conflicts and Replaces against semplice-utilities (<< 6.20.0), because of the inxi transition.
