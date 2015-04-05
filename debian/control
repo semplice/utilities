@@ -10,8 +10,7 @@ X-Python-Version: >=2.6
 Package: semplice-utilities
 Architecture: all
 Pre-Depends: meta-base (>= 5.80.0)
-Depends: ${misc:Depends}, ${python:Depends}, bash, mawk | gawk | original-awk, findutils, grep, wget, coreutils, openbox, python-gtk2, python-xdg, python-t9n, python-dbus, netselect, python-gi, gir1.2-gtk-3.0, python-glade2, systemd | systemd-shim, inxi
-Breaks: semplice-utilities (<< 6.20.0)
+Depends: ${misc:Depends}, ${python:Depends}, bash, mawk | gawk | original-awk, findutils, grep, wget, coreutils, openbox, python-gtk2, python-xdg, python-t9n, python-dbus, netselect, python-gi, gir1.2-gtk-3.0, python-glade2, systemd | systemd-shim, inxi (>= 2.1.28-1+semplice0)
 Description: Semplice Linux Utilities
  This package contains the Semplice Linux utilities.
  Actually, it contains:
